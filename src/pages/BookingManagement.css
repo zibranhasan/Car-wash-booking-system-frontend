@@ -1,0 +1,39 @@
+.booking-management {
+  padding: 20px;
+}
+
+.booking-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.countdown-timer {
+  font-size: 1.2em;
+  color: #333;
+  font-weight: bold;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.booking-table th,
+.booking-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.booking-table th {
+  background-color: #f4f4f4;
+}
