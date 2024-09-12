@@ -1,5 +1,7 @@
 # Car Wash Booking System Frontend
-
+## Live Link: https://car-wash-booking-system-livid.vercel.app
+## (admin:admin@gmail.com pass:123456 , User1: user1@gmail.com  pass:123456, user2:user2@gmail.com  pass:123456 )
+## Backend repo: https://github.com/zibranhasan/Car-Wash-Booking-System_backend
 ## Overview
 
 The **Car Wash Booking System Frontend** is a user-friendly web application designed to streamline the car wash booking process. It provides a seamless experience for users to book car wash services, while offering powerful management tools for administrators.
