@@ -1,56 +1,76 @@
+/* Reset margins and paddings */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Roboto", sans-serif; /* Set a modern sans-serif font */
+}
+
 /* Register form container */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background-color: #f0f2f5;
+  min-height: 100vh; /* Full height of the viewport */
+  background: linear-gradient(
+    135deg,
+    #ece9e6,
+    #ffffff
+  ); /* Smooth gradient background */
   padding: 20px;
+  box-sizing: border-box; /* Ensure padding is included in the element's width/height */
 }
 
 /* Form styles */
 .register-form {
   background-color: white;
   padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px; /* Increased border radius for a softer look */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1); /* Enhanced box shadow */
   width: 100%;
   max-width: 450px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-form:hover {
+  transform: translateY(-5px); /* Slight hover lift effect */
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
 }
 
 /* Form group spacing */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px; /* Increased spacing for better separation */
 }
 
 /* Label styling */
 .form-label {
   display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
+  margin-bottom: 10px;
+  font-size: 16px; /* Slightly larger font for labels */
   font-weight: 600;
-  color: #333;
+  color: #555;
 }
 
 /* Input field styling */
 .input-field {
   width: 100%;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 12px 15px; /* Added padding for better spacing */
+  font-size: 15px;
   border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  transition: border-color 0.3s ease;
+  border-radius: 8px; /* Rounded corners for inputs */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-field:focus {
   border-color: #40a9ff;
-  box-shadow: 0 0 5px rgba(64, 169, 255, 0.3);
+  box-shadow: 0 0 8px rgba(64, 169, 255, 0.4);
   outline: none;
 }
 
 /* Error message styling */
 .error-message {
-  font-size: 12px;
+  font-size: 13px; /* Increased font size for better visibility */
   color: #ff4d4f;
   margin-top: 5px;
 }
@@ -61,49 +81,49 @@
   background-color: #1890ff;
   border: none;
   color: white;
-  font-size: 10px;
-  padding: 10px 0;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  font-size: 16px; /* Larger font size for buttons */
+  padding: 14px 0; /* Increased padding for larger button size */
+  border-radius: 8px; /* Rounded corners for buttons */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
 .register-button:hover {
   background-color: #40a9ff;
+  transform: scale(1.03); /* Slightly increase size on hover */
 }
 
 /* Login redirect section */
 .login-redirect {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   margin-top: 20px;
+  color: #555; /* Subtle text color */
 }
 
-/* Login label */
 .login-label {
-  font-size: 10px;
-  color: #333;
+  margin-right: 8px;
 }
 
 /* Login button */
 .login-button {
-  background-color: #ffffff;
-  border: 1px solid #40a9ff;
   color: #1890ff;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
+  background: transparent;
+  border: none;
+  font-weight: 2px solid #1890ff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .login-button:hover {
-  background-color: #f0f8ff;
-  border-color: #1890ff;
+  color: #40a9ff;
+  transform: translateY(-2px); /* Lift effect on hover */
 }
 
 /* Responsive design for mobile devices */
 @media (max-width: 768px) {
   .register-form {
-    padding: 20px;
-    width: 100%;
+    padding: 30px 20px; /* Reduced padding for smaller screens */
   }
 
   .login-redirect {
@@ -114,5 +134,6 @@
   .login-button {
     width: 100%;
     margin-top: 10px;
+    text-align: center; /* Center text */
   }
 }

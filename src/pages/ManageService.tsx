@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Table,
   Button,
@@ -88,9 +88,13 @@ const ManageService = () => {
       title: "Actions",
       key: "actions",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (text: any, record: Service) => (
+      render: (_text: any, record: Service) => (
         <span>
-          <Button type="link" onClick={() => handleUpdateService(record)}>
+          <Button
+            type="link"
+            onClick={() => handleUpdateService(record)}
+            style={{ color: "#1890ff", marginRight: 12 }}
+          >
             Update
           </Button>
           <Popconfirm
@@ -109,18 +113,40 @@ const ManageService = () => {
   ];
 
   return (
-    <div>
-      <h1>Manage Services</h1>
-      <Button type="primary" onClick={handleAddService}>
+    <div style={{ padding: "20px", background: "#f9f9f9", minHeight: "100vh" }}>
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Manage Services
+      </h1>
+      <Button
+        type="primary"
+        onClick={handleAddService}
+        style={{
+          marginBottom: "20px",
+          backgroundColor: "#4CAF50",
+          borderColor: "#4CAF50",
+        }}
+      >
         Add Service
       </Button>
-      <Table columns={columns} dataSource={allServiceData} rowKey="_id" />
+      <Table
+        columns={columns}
+        dataSource={allServiceData}
+        rowKey="_id"
+        style={{
+          borderRadius: "8px",
+          overflow: "hidden",
+          background: "#ffffff",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      />
 
+      {/* Add Service Modal */}
       <Modal
         title="Add Service"
         visible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}
+        style={{ borderRadius: "8px" }}
       >
         <Form form={form} onFinish={handleCreateService}>
           <Form.Item
@@ -142,26 +168,32 @@ const ManageService = () => {
             label="Price"
             rules={[{ required: true, message: "Please input price" }]}
           >
-            <InputNumber min={0} />
+            <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             name="duration"
             label="Duration (minutes)"
             rules={[{ required: true, message: "Please input duration" }]}
           >
-            <InputNumber min={0} />
+            <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ width: "100%", backgroundColor: "#1890ff" }}
+          >
             Submit
           </Button>
         </Form>
       </Modal>
 
+      {/* Update Service Modal */}
       <Modal
         title="Update Service"
         visible={isUpdateModalVisible}
         onCancel={() => setIsUpdateModalVisible(false)}
         footer={null}
+        style={{ borderRadius: "8px" }}
       >
         <Form form={form} onFinish={handleEditService}>
           <Form.Item
@@ -183,16 +215,20 @@ const ManageService = () => {
             label="Price"
             rules={[{ required: true, message: "Please input price" }]}
           >
-            <InputNumber min={0} />
+            <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             name="duration"
             label="Duration (minutes)"
             rules={[{ required: true, message: "Please input duration" }]}
           >
-            <InputNumber min={0} />
+            <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ width: "100%", backgroundColor: "#1890ff" }}
+          >
             Submit
           </Button>
         </Form>

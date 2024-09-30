@@ -10,7 +10,22 @@ const transactionManagementApi = baseApi.injectEndpoints({
         body: transactionInfo,
       }),
       invalidatesTags: ["transaction"],
+
+      // Handle the response
+      onQueryStarted: async ({ queryFulfilled }) => {
+        try {
+          // Await the result of the mutation
+          const { data } = await queryFulfilled;
+          console.log("Transaction response:", data);
+
+          // Perform any additional actions based on the response here (optional)
+          // e.g., dispatch some other action or update the store
+        } catch (error) {
+          console.error("Transaction error:", error);
+        }
+      },
     }),
+
     getAllTransaction: builder.query({
       query: (args) => {
         const params = new URLSearchParams();

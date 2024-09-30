@@ -22,7 +22,25 @@ import {
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
-const ManageSlots = () => {
+interface Slot {
+  _id: string;
+  service: {
+    _id: string;
+    name: string;
+  };
+  date: string; // ISO date string
+  startTime: string; // HH:mm
+  endTime: string; // HH:mm
+  isBooked: string; // e.g., "booked", "available", "canceled"
+}
+
+interface Service {
+  _id: string;
+  name: string;
+  description: string;
+}
+
+const ManageSlots: React.FC = () => {
   const { data: slots } = useGetAllSlotsQuery("");
   const [updateSlots] = useUpdateSlotsMutation();
   const [createSlots] = useCreateSlotsMutation();
@@ -31,18 +49,16 @@ const ManageSlots = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selectedService, setSelectedService] = useState<any>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selectedSlot, setSelectedSlot] = useState<any>(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [form] = Form.useForm();
   const [filters, setFilters] = useState({
     service: null,
     dateRange: null,
   });
 
-  const allSlots = slots?.response.data || [];
-  const allServiceData = services?.data.data || [];
+  const allSlots: Slot[] = slots?.response.data || [];
+  const allServiceData: Service[] = services?.data.data || [];
 
   const filteredSlots = allSlots.filter((slot) => {
     const serviceMatch =
@@ -58,8 +74,7 @@ const ManageSlots = () => {
     return serviceMatch && dateMatch;
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const showModal = (service: any) => {
+  const showModal = (service: Service) => {
     setSelectedService(service);
     setIsModalVisible(true);
   };
@@ -68,7 +83,7 @@ const ManageSlots = () => {
     try {
       const values = await form.validateFields();
       const payload = {
-        service: selectedService._id,
+        service: selectedService!._id,
         date: values.date.format("YYYY-MM-DD"),
         startTime: values.startTime.format("HH:mm"),
         endTime: values.endTime.format("HH:mm"),
@@ -90,7 +105,7 @@ const ManageSlots = () => {
         startTime: values.startTime.format("HH:mm"),
         endTime: values.endTime.format("HH:mm"),
       };
-      await updateSlots({ id: selectedSlot._id, ...payload });
+      await updateSlots({ id: selectedSlot!._id, ...payload });
       alert("Slot updated successfully!");
       setIsUpdateModalVisible(false);
     } catch (error) {
@@ -113,8 +128,7 @@ const ManageSlots = () => {
     alert("Slot deleted successfully");
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const showUpdateModal = (slot: any) => {
+  const showUpdateModal = (slot: Slot) => {
     setSelectedSlot(slot);
     form.setFieldsValue({
       date: moment(slot.date),
@@ -130,7 +144,7 @@ const ManageSlots = () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "16px" }}>
       <h1>All Services</h1>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
         {allServiceData.map((service) => (
@@ -141,14 +155,18 @@ const ManageSlots = () => {
             style={{
               width: 300,
               border: "1px solid #5899f5",
-              boxShadow: "0 2px 4px #5899f5",
+              boxShadow: "0 2px 4px rgba(88, 153, 245, 0.3)",
             }}
             actions={[
               <Button
                 key="create"
                 type="primary"
                 onClick={() => showModal(service)}
-                style={{ borderRadius: "4px" }}
+                style={{
+                  borderRadius: "4px",
+                  backgroundColor: "#5899f5",
+                  color: "#fff",
+                }}
               >
                 Create Slot
               </Button>,
@@ -159,7 +177,7 @@ const ManageSlots = () => {
         ))}
       </div>
 
-      <h2>All Slots</h2>
+      <h2 style={{ marginTop: "32px" }}>All Slots</h2>
       <div style={{ marginBottom: "16px" }}>
         <Select
           placeholder="Select Service"
@@ -188,7 +206,10 @@ const ManageSlots = () => {
         <Table.Column title="Status" dataIndex="isBooked" />
         <Table.Column
           title="Action"
-          render={(text, slot) => (
+          render={(
+            _text,
+            slot: Slot // Ensure slot is explicitly typed as Slot
+          ) => (
             <>
               <Select
                 defaultValue={slot.isBooked}
@@ -200,7 +221,12 @@ const ManageSlots = () => {
               </Select>
               <Button
                 onClick={() => showUpdateModal(slot)}
-                style={{ marginLeft: 8 }}
+                style={{
+                  marginLeft: 8,
+                  borderRadius: "4px",
+                  backgroundColor: "#5899f5",
+                  color: "#fff",
+                }}
               >
                 Update
               </Button>
@@ -208,7 +234,7 @@ const ManageSlots = () => {
                 title="Sure to delete?"
                 onConfirm={() => handleDeleteSlot(slot._id)}
               >
-                <Button danger style={{ marginLeft: 8 }}>
+                <Button danger style={{ marginLeft: 8, borderRadius: "4px" }}>
                   Delete
                 </Button>
               </Popconfirm>

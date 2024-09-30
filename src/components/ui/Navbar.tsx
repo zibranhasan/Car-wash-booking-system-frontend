@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   HomeOutlined,
   AppstoreOutlined,
-  CalendarOutlined,
   LoginOutlined,
   UserAddOutlined,
   LogoutOutlined,
@@ -104,23 +103,19 @@ const Navbar = () => {
       icon: <AppstoreOutlined />,
       label: <Link to="/services">Services</Link>,
     },
-    {
-      key: "3",
-      icon: <CalendarOutlined />,
-      label: <Link to="/booking">Booking</Link>,
-    },
+
     !currentUser && {
-      key: "4",
+      key: "3",
       icon: <LoginOutlined />,
       label: <Link to="/login">Login</Link>,
     },
     !currentUser && {
-      key: "5",
+      key: "4",
       icon: <UserAddOutlined />,
       label: <Link to="/register">Register</Link>,
     },
     currentUser && {
-      key: "6",
+      key: "5",
       icon: <LogoutOutlined />,
       label: (
         <span
@@ -138,8 +133,8 @@ const Navbar = () => {
   }>;
 
   return (
-    <Header style={{ backgroundColor: "#001529", padding: "0 10px" }}>
-      <Row align="middle" justify="space-between">
+    <Header style={{ backgroundColor: "#001529", marginTop: "0" }}>
+      <Row align="middle" justify="space-between" style={{ margin: 0 }}>
         <Col>
           <Title
             level={3}

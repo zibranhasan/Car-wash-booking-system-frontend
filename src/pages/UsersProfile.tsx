@@ -65,7 +65,7 @@ const UsersProfile = () => {
       title: "Actions",
       key: "actions",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (text: any, record: User) => (
+      render: (_text: any, record: User) => (
         <div>
           <Switch
             checked={record.role === "admin"}

@@ -20,13 +20,8 @@ export const userPaths = [
     ],
   },
   {
-    name: "Booking Management",
-    children: [
-      {
-        name: "Bookings",
-        path: "bookingsManagement",
-        element: <BookingManagement />,
-      },
-    ],
+    name: "My-Bookings",
+    path: "bookingsManagement",
+    element: <BookingManagement />,
   },
 ];

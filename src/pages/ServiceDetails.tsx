@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   useGetAvailableTimeSlotsQuery,
   useGetServiceByIdQuery,
@@ -17,21 +17,21 @@ import {
   Input,
 } from "antd";
 import { DollarOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { Dayjs } from "dayjs"; // Import Dayjs for date handling
+import { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import {
   ServiceResponse,
   TimeSlot,
   TimeSlotsResponse,
 } from "../types/serviceDetails";
-
 import { useCreateBookingMutation } from "../redux/api/bookingApi";
+import { useCreateTransactionMutation } from "../redux/api/transactionApi";
+import { useAppSelector } from "../redux/hook";
 
 const { Title, Text } = Typography;
 
 const ServiceDetails = () => {
-  const { id } = useParams<{ id: string }>(); // Expect 'id' as a URL param
-  const navigate = useNavigate(); // Initialize useNavigate
+  const { id } = useParams<{ id: string }>();
 
   const {
     data: serviceDetails,
@@ -44,18 +44,21 @@ const ServiceDetails = () => {
     isLoading: isLoadingSlots,
     isError: isErrorSlots,
   } = useGetAvailableTimeSlotsQuery<TimeSlotsResponse>("");
-  const [booking] = useCreateBookingMutation();
 
-  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs()); // Default to current date
+  const [createBooking] = useCreateBookingMutation();
+  const [createTransaction] = useCreateTransactionMutation();
+  const { user } = useAppSelector((state) => state.auth);
+  const userEmail = user?.email;
+
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
   const [filteredSlots, setFilteredSlots] = useState<TimeSlot[]>([]);
   const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false); // Modal state
-  const [form] = Form.useForm(); // Ant Design form instance
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
   const service = serviceDetails?.data || null;
   const availableTimeSlots = timeSlotsData?.data?.data || [];
 
-  // Filter time slots by date
   const filterSlotsByDate = (date: Dayjs | null) => {
     const formattedDate = date ? date.format("YYYY-MM-DD") : null;
     const filtered = availableTimeSlots.filter(
@@ -64,43 +67,68 @@ const ServiceDetails = () => {
     setFilteredSlots(filtered);
   };
 
-  // Handle date change and filter available slots
   const onDateChange = (date: Dayjs | null) => {
     setSelectedDate(date);
     filterSlotsByDate(date);
   };
 
-  // Handle slot selection
   const handleSlotSelect = (slotId: string) => {
-    setSelectedSlotId(slotId);
+    console.log("slotId", slotId);
+    setSelectedSlotId(slotId); // Set selected slot ID
   };
 
-  // Show Modal when "Book This Service" is clicked
+  // Open the modal once the selectedSlotId is set
+  useEffect(() => {
+    if (selectedSlotId) {
+      showModal(); // Open modal only after selectedSlotId is set
+    }
+  }, [selectedSlotId]);
+
   const showModal = () => {
-    setIsModalVisible(true);
     form.setFieldsValue({
-      serviceId: id || "N/A", // Set field name to 'serviceId'
-      slotId: selectedSlotId || "N/A", // Set field name to 'slotId'
+      email: userEmail,
+      slotId: selectedSlotId, // Now slotId will be available
+      serviceId: id,
     });
+    setIsModalVisible(true);
   };
 
-  // Handle form submission
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOk = async (values: any) => {
+    console.log("values of bookings", values);
     try {
-      console.log("Form Submitted", values);
-      await booking(values).unwrap(); // Ensure mutation is awaited and unwrapped for proper error handling
-      setIsModalVisible(false);
-      navigate("/booking"); // Navigate to the /bookings route
+      // Create booking first
+      const bookingResponse = await createBooking(values).unwrap();
+      console.log("createBooking(values)", bookingResponse);
+
+      // Then create transaction
+      const transactionValues = {
+        email: bookingResponse.data.customer.email,
+        slotId: bookingResponse.data.slot._id, // Get slotId from booking response
+        amount: service.price, // Use the service price from service details
+      };
+
+      const transactionResponse = await createTransaction(
+        transactionValues
+      ).unwrap();
+      console.log("Transaction Response:", transactionResponse);
+
+      // Check if transaction was successful and if a URL is provided
+      if (transactionResponse?.url) {
+        window.location.replace(transactionResponse.url); // Redirect to payment page
+      } else {
+        console.error("No payment URL found in the transaction response.");
+      }
     } catch (error) {
-      console.error("Booking failed:", error);
-      // Handle form submission errors here
+      console.error("Error during booking and transaction:", error);
+    } finally {
+      setIsModalVisible(false); // Close the modal
     }
   };
 
-  // Close modal without saving
   const handleCancel = () => {
     setIsModalVisible(false);
+    form.resetFields();
   };
 
   useEffect(() => {
@@ -157,7 +185,6 @@ const ServiceDetails = () => {
           </Col>
         </Row>
 
-        {/* Calendar to select a date */}
         <DatePicker
           onChange={onDateChange}
           value={selectedDate}
@@ -165,7 +192,6 @@ const ServiceDetails = () => {
           style={{ width: "100%", marginBottom: 16 }}
         />
 
-        {/* Display available or booked slots */}
         {filteredSlots.length > 0 ? (
           <List
             dataSource={filteredSlots}
@@ -179,12 +205,10 @@ const ServiceDetails = () => {
                 />
                 {slot.isBooked === "available" ? (
                   <Button
-                    type={slot._id === selectedSlotId ? "primary" : "default"}
+                    type="primary"
                     onClick={() => handleSlotSelect(slot._id)}
                   >
-                    {slot._id === selectedSlotId
-                      ? "Selected"
-                      : "Select this slot"}
+                    Book This Slot
                   </Button>
                 ) : (
                   <Button disabled>Booked</Button>
@@ -194,15 +218,6 @@ const ServiceDetails = () => {
           />
         ) : (
           <Text>No available slots for the selected date.</Text>
-        )}
-
-        {/* Show "Book This Service" button after selecting a slot */}
-        {selectedSlotId && (
-          <div style={{ marginTop: "16px", textAlign: "center" }}>
-            <Button type="primary" size="large" onClick={showModal}>
-              Book This Service
-            </Button>
-          </div>
         )}
       </Card>
 
@@ -273,7 +288,7 @@ const ServiceDetails = () => {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit Booking
+              Payment
             </Button>
           </Form.Item>
         </Form>

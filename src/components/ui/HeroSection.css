@@ -1,7 +1,10 @@
 /* src/components/ui/HeroSection.css */
-
+.hero-section {
+  margin: 0;
+}
 .hero-section .carousel-slide {
   position: relative;
+  margin: 0;
 }
 
 .hero-section .carousel-content {
@@ -12,8 +15,6 @@
   color: white;
   text-align: center;
   /* Dark overlay for better text visibility */
-  padding: 20px;
-  /* border-radius: 8px; */
 }
 
 .hero-section h1 {

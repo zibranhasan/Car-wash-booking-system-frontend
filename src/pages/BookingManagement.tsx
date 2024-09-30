@@ -27,8 +27,6 @@ const BookingManagement = () => {
 
   return (
     <div className="booking-management">
-      <h1>Booking Management</h1>
-
       <h2>Upcoming Bookings</h2>
       <div className="booking-cards">
         {userBookings

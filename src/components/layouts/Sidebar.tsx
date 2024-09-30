@@ -1,12 +1,12 @@
 import { Layout, Menu } from "antd";
-import { Key } from "antd/es/table/interface";
+
 import { verifyToken } from "../../utils/verifyToken";
 import { useAppSelector } from "../../redux/hook";
 import { TUser, userCurrentToken } from "../../redux/features/authSlice";
 import { sidebarItemsGenerator } from "../../utils/sideBarItemsGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { userPaths } from "../../routes/user.routes";
-import { MenuProps } from "antd"; // Use this for defining menu items
+import { MenuProps } from "antd"; // For defining menu items
 
 const { Sider } = Layout;
 
@@ -14,21 +14,6 @@ const userRole = {
   USER: "user",
   ADMIN: "admin",
 };
-
-interface MenuItemType {
-  key: Key;
-  // Other properties specific to your MenuItemType
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type ItemType<T = MenuItemType> = {
-  key: Key;
-  icon?: React.ReactNode;
-  title?: React.ReactNode;
-  disabled?: boolean;
-  // Other properties specific to your ItemType
-  children?: ItemType<T>[];
-} & T;
 
 const Sidebar = () => {
   const token = useAppSelector(userCurrentToken);
@@ -39,16 +24,15 @@ const Sidebar = () => {
     user = verifyToken(token);
   }
 
-  // console.log("user from sidebar", user);
+  // Determine sidebar items based on user role
+  let sidebarItems: MenuProps["items"];
 
-  let sidebarItems: MenuProps["items"]; // Use the correct Ant Design type for menu items
-
-  switch ((user as TUser)!.role) {
+  switch ((user as TUser)?.role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(
         adminPaths,
         userRole.ADMIN
-      ) as MenuProps["items"]; // Update this casting
+      ) as MenuProps["items"];
       break;
     case userRole.USER:
       sidebarItems = sidebarItemsGenerator(
@@ -56,6 +40,8 @@ const Sidebar = () => {
         userRole.USER
       ) as MenuProps["items"];
       break;
+    default:
+      sidebarItems = []; // Default to an empty array if no role is matched
   }
 
   return (
@@ -72,12 +58,14 @@ const Sidebar = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      ></div>
+      >
+        {/* You can add a logo or title here */}
+      </div>
       <Menu
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["4"]}
-        items={sidebarItems} // Use the correct items type
+        items={sidebarItems}
       />
     </Sider>
   );

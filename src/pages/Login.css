@@ -1,109 +1,154 @@
+/* Reset margins and paddings */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 /* Login form container */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
-  padding: 20px;
+  min-height: 100vh; /* Full height of the viewport */
+  background: linear-gradient(135deg, #ece9e6, #ffffff);
+  padding: 0 5px; /* Minimal side padding to avoid horizontal overflow */
+  box-sizing: border-box; /* Ensure the padding is included in the element's total width/height */
 }
 
-/* Form styles */
-.login-form {
-  background-color: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+/* Card styling */
+.login-card {
+  background: white;
+  padding: 3px 5px; /* Adjusted padding for a compact design */
+  border-radius: 20px;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  transition: transform 0.3s ease;
 }
 
-/* Form group spacing */
-.form-group {
+.login-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Title and Subtitle */
+.form-title {
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+}
+
+.sub-title {
+  text-align: center;
+  color: #777;
   margin-bottom: 20px;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 18px;
 }
 
 /* Label styling */
 .form-label {
   display: block;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #555;
 }
 
 /* Input field styling */
 .input-field {
   width: 100%;
-  padding: 8px 12px;
+  padding: 12px;
   font-size: 14px;
   border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  transition: border-color 0.3s ease;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-field:focus {
   border-color: #40a9ff;
-  box-shadow: 0 0 5px rgba(64, 169, 255, 0.3);
+  box-shadow: 0 0 8px rgba(64, 169, 255, 0.4);
   outline: none;
 }
 
-/* Error message styling */
+/* Error message */
 .error-message {
   font-size: 12px;
   color: #ff4d4f;
   margin-top: 5px;
 }
 
-/* Login button styling */
+/* Primary Login button */
 .login-button {
   width: 100%;
-  background-color: #1890ff;
-  border: none;
-  color: white;
+  color: #40a9ff;
+  background-color: #c7ddf2;
+  border: 2px solid #278eef;
+  color: rgb(255, 255, 255);
   font-size: 16px;
-  padding: 10px 0;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  padding: 14px 0;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .login-button:hover {
   background-color: #40a9ff;
+  transform: scale(1.03);
 }
 
-/* Register redirect section */
+/* Google Login Button */
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: transform 0.2s ease, border-color 0.3s ease;
+}
+
+.google-login-button .icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.google-login-button:hover {
+  border-color: #40a9ff;
+  transform: scale(1.03);
+}
+
+/* Register redirect */
 .register-redirect {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   margin-top: 20px;
 }
 
-/* Register label */
 .register-label {
-  font-size: 14px;
-  color: #333;
+  margin-right: 10px;
+  color: #777;
 }
 
-/* Register button */
 .register-button {
-  background-color: #ffffff;
-  border: 1px solid #40a9ff;
-  color: #1890ff;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.register-button:hover {
-  background-color: #f0f8ff;
-  border-color: #1890ff;
+  color: #40a9ff;
+  font-weight: bold;
 }
 
 /* Responsive design for mobile devices */
 @media (max-width: 768px) {
-  .login-form {
-    padding: 20px;
-    width: 100%;
+  .login-card {
+    padding: 20px 20px; /* Adjusted padding for mobile screens */
+  }
+
+  .login-button,
+  .google-login-button {
+    padding: 12px 0;
   }
 
   .register-redirect {

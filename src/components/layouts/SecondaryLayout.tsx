@@ -5,26 +5,23 @@ import Footer from "../ui/Footer";
 import Sidebar from "./Sidebar";
 import { useAppSelector } from "../../redux/hook";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const SecondaryLayout = () => {
   const { token } = useAppSelector((state) => state.auth);
 
   return (
-    <Layout
-      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
-    >
-      {/* Header */}
-      <Header style={{ padding: 0 }}>
-        <Navbar /> {/* Navbar component */}
-      </Header>
+    <Layout style={{ margin: "0" }}>
+      {" "}
+      {/* Ensure no margin or padding */}
+      <Navbar /> {/* Navbar component */}
       {/* Main Layout */}
       <Layout style={{ flex: 1, display: "flex" }}>
         {/* Sidebar - Render only if token exists */}
         {token && <Sidebar />}
 
         {/* Content Section */}
-        <Content style={{ flex: 1, margin: 8 }}>
+        <Content style={{ flex: 1, margin: 0 }}>
           <Outlet /> {/* Main Content Area */}
         </Content>
       </Layout>

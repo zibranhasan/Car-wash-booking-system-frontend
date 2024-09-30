@@ -6,7 +6,6 @@ const Footer = () => {
         textAlign: "center",
         backgroundColor: "#001529",
         color: "#fff",
-        padding: "10px 0",
       }}
     >
       <p>© {new Date().getFullYear()} CarWashBooker. All rights reserved.</p>
