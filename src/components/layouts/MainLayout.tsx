@@ -9,19 +9,21 @@ const MainLayout = () => {
   return (
     <Layout
       style={{
-        minHeight: "100vh",
+        minHeight: "100vh", // Full height for the layout
         display: "flex",
         flexDirection: "column",
-        margin: "0",
       }}
     >
-      <Navbar /> {/* Insert Navbar component here */}
-      {/* Content with flex to take remaining space */}
+      {/* Navbar stays at the top */}
+      <Navbar />
+
+      {/* Content with flex-grow to take up remaining space */}
       <Content style={{ flex: 1 }}>
         <Outlet />
       </Content>
-      {/* Footer */}
-      <Footer /> {/* Insert Footer component here */}
+
+      {/* Footer always at the bottom */}
+      <Footer />
     </Layout>
   );
 };

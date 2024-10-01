@@ -11,7 +11,13 @@ const SecondaryLayout = () => {
   const { token } = useAppSelector((state) => state.auth);
 
   return (
-    <Layout style={{ margin: "0" }}>
+    <Layout
+      style={{
+        minHeight: "100vh", // Full height for the layout
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {" "}
       {/* Ensure no margin or padding */}
       <Navbar /> {/* Navbar component */}
