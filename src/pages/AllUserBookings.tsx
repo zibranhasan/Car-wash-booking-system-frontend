@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Card, Avatar, Divider } from "antd";
+import {
+  UserOutlined,
+  CarOutlined,
+  CalendarOutlined,
+  ClockCircleOutlined,
+} from "@ant-design/icons";
 import { useGetAllBookingsQuery } from "../redux/api/bookingApi";
+
+const { Meta } = Card;
 
 // Define types for Booking, Customer, Slot, etc.
 interface Slot {
@@ -14,6 +22,7 @@ interface Customer {
   _id: string;
   name: string;
   email: string;
+  photo: string;
 }
 
 interface Booking {
@@ -68,30 +77,57 @@ const AllUserBookings = () => {
   const userBookings = groupBookingsByUser(AllBookings);
 
   return (
-    <div>
-      <h1>All User Bookings</h1>
-      {userBookings.length > 0 ? (
-        userBookings.map(({ userInfo, bookings }) => (
-          <div
-            key={userInfo._id}
-            style={{
-              border: "1px solid #ccc",
-              marginBottom: "10px",
-              padding: "10px",
-            }}
-          >
-            <h2>User: {userInfo.name}</h2>
-            <p>
-              <strong>Email:</strong> {userInfo.email}
-            </p>
-            <Button onClick={() => handleShowBookings(bookings)}>
-              Show Bookings
-            </Button>
-          </div>
-        ))
-      ) : (
-        <p>No bookings found.</p>
-      )}
+    <div style={{ padding: "20px" }}>
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+        All User Bookings
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          justifyContent: "center",
+        }}
+      >
+        {userBookings.length > 0 ? (
+          userBookings.map(({ userInfo, bookings }) => (
+            <Card
+              key={userInfo._id}
+              style={{
+                width: 300,
+                borderRadius: 10,
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+              }}
+              actions={[
+                <Button
+                  type="primary"
+                  onClick={() => handleShowBookings(bookings)}
+                >
+                  Show Bookings
+                </Button>,
+              ]}
+            >
+              <Meta
+                avatar={
+                  <Avatar
+                    size={64}
+                    src={userInfo.photo}
+                    icon={<UserOutlined />}
+                  />
+                }
+                title={userInfo.name}
+                description={
+                  <p style={{ marginBottom: 0 }}>
+                    <strong>Email:</strong> {userInfo.email}
+                  </p>
+                }
+              />
+            </Card>
+          ))
+        ) : (
+          <p>No bookings found.</p>
+        )}
+      </div>
 
       {/* Modal for displaying user bookings */}
       <Modal
@@ -106,28 +142,58 @@ const AllUserBookings = () => {
       >
         {selectedBookings.length > 0 ? (
           selectedBookings.map((booking) => (
-            <div key={booking._id} style={{ marginBottom: "10px" }}>
-              <h3>Service: {booking.service.name}</h3>
-              <p>
-                <strong>Slot Date:</strong> {booking.slot.date}
-              </p>
-              <p>
-                <strong>Time:</strong> {booking.slot.startTime} -{" "}
-                {booking.slot.endTime}
-              </p>
-              <p>
-                <strong>Vehicle:</strong> {booking.vehicleBrand}{" "}
-                {booking.vehicleModel} ({booking.vehicleType})
-              </p>
-              <p>
-                <strong>Registration Plate:</strong> {booking.registrationPlate}
-              </p>
-              <p>
-                <strong>Booking Status:</strong>{" "}
-                {booking.slot.isBooked ? "Booked" : "Available"}
-              </p>
-              <hr />
-            </div>
+            <Card
+              key={booking._id}
+              style={{
+                marginBottom: "10px",
+                borderRadius: 10,
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+              }}
+            >
+              <Meta
+                avatar={
+                  <Avatar
+                    icon={<CarOutlined />}
+                    style={{ backgroundColor: "#1890ff" }}
+                  />
+                }
+                title={
+                  <>
+                    <strong>Service:</strong> {booking.service.name}
+                  </>
+                }
+                description={
+                  <>
+                    <Divider />
+                    <p>
+                      <CalendarOutlined /> <strong>Date:</strong>{" "}
+                      {booking.slot.date}
+                    </p>
+                    <p>
+                      <ClockCircleOutlined /> <strong>Time:</strong>{" "}
+                      {booking.slot.startTime} - {booking.slot.endTime}
+                    </p>
+                    <p>
+                      <CarOutlined /> <strong>Vehicle:</strong>{" "}
+                      {booking.vehicleBrand} {booking.vehicleModel} (
+                      {booking.vehicleType})
+                    </p>
+                    <p>
+                      <strong>Registration Plate:</strong>{" "}
+                      {booking.registrationPlate}
+                    </p>
+                    <p>
+                      <strong>Booking Status:</strong>{" "}
+                      {booking.slot.isBooked ? (
+                        <span style={{ color: "green" }}>Booked</span>
+                      ) : (
+                        <span style={{ color: "orange" }}>Available</span>
+                      )}
+                    </p>
+                  </>
+                }
+              />
+            </Card>
           ))
         ) : (
           <p>No bookings for this user.</p>

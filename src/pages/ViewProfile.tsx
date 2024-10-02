@@ -1,41 +1,70 @@
 import { useGetProfileQuery } from "../redux/api/authApi";
-import "./ViewProfile.css"; // Import your styles
+import { Card, Avatar, Typography, Spin } from "antd"; // Ant Design Components
+import "./ViewProfile.css";
+
+const { Title, Text } = Typography; // Destructuring Typography components
 
 const ViewProfile = () => {
   const { data: userProfile, isLoading } = useGetProfileQuery(undefined);
   const profileData = userProfile?.response.user;
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="loading-container">
+        <Spin size="large" />
+      </div>
+    );
   }
 
   return (
     <div className="profile-container">
-      <h1 className="profile-title">User Profile</h1>
+      <Title className="profile-title">User Profile</Title>
       {profileData && (
-        <div className="profile-card">
-          <h2 className="profile-name">{profileData.name}</h2>
-          <p>
+        <Card
+          className="profile-card"
+          bordered
+          style={{ width: "100%", maxWidth: 500, margin: "0 auto" }}
+        >
+          {/* Render the user's profile photo */}
+          {profileData.photo && (
+            <Avatar
+              src={profileData.photo}
+              size={120}
+              className="profile-avatar"
+              alt={`${profileData.name}'s Profile`}
+            />
+          )}
+
+          {/* Display user details */}
+          <Title level={2} className="profile-name">
+            {profileData.name}
+          </Title>
+          <Text className="profile-text">
             <strong>Email:</strong> {profileData.email}
-          </p>
-          <p>
+          </Text>
+          <br />
+          <Text className="profile-text">
             <strong>Phone:</strong> {profileData.phone}
-          </p>
-          <p>
+          </Text>
+          <br />
+          <Text className="profile-text">
             <strong>Role:</strong> {profileData.role}
-          </p>
-          <p>
+          </Text>
+          <br />
+          <Text className="profile-text">
             <strong>Address:</strong> {profileData.address}
-          </p>
-          <p>
+          </Text>
+          <br />
+          <Text className="profile-text">
             <strong>Joined:</strong>{" "}
             {new Date(profileData.createdAt).toDateString()}
-          </p>
-          <p>
+          </Text>
+          <br />
+          <Text className="profile-text">
             <strong>Last Updated:</strong>{" "}
             {new Date(profileData.updatedAt).toLocaleString()}
-          </p>
-        </div>
+          </Text>
+        </Card>
       )}
     </div>
   );

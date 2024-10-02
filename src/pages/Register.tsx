@@ -1,7 +1,9 @@
+import React, { useState, ChangeEvent } from "react";
 import { Button, Input, Typography } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../redux/api/authApi";
+import axios from "axios";
 import "./Register.css"; // Import custom CSS file
 
 const { Text } = Typography;
@@ -13,10 +15,11 @@ type TuserInfo = {
   password: string;
   phone: string;
   address: string;
+  photo?: string; // Add the photo field to the form shape
 };
 
-const Register = () => {
-  // Pass the TuserInfo type to useForm to type check the form fields
+const Register: React.FC = () => {
+  // Pass the TuserInfo type to useForm to type-check the form fields
   const {
     control,
     handleSubmit,
@@ -25,15 +28,53 @@ const Register = () => {
 
   const [register] = useRegisterMutation();
   const navigate = useNavigate();
+  const [image, setImage] = useState<File | null>(null);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null); // Add a preview state
 
+  // Handle image selection
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedImage = e.target.files[0];
+      setImage(selectedImage);
+      setPreview(URL.createObjectURL(selectedImage)); // Set preview to the selected image URL
+    }
+  };
+
+  // Handle form submission
   const onSubmit = async (data: TuserInfo) => {
+    let imageUrl = "";
     try {
-      const response = await register(data).unwrap();
+      // If an image is selected, upload it first
+      if (image) {
+        setImageLoading(true);
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const response = await axios.post(
+          "https://api.imgbb.com/1/upload?key=963ca9297bc7cea248773301a33b8428",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        imageUrl = response.data.data.display_url;
+        setImageLoading(false);
+      }
+
+      // Include the image URL in the user data
+      const userData = { ...data, photo: imageUrl };
+
+      // Send registration data to the backend
+      const response = await register(userData).unwrap();
       if (response.success) {
         console.log("Registration successful", response);
         navigate("/login");
       }
     } catch (error) {
+      setImageLoading(false);
       console.error("Registration failed", error);
     }
   };
@@ -137,6 +178,24 @@ const Register = () => {
               {errors.address?.message}
             </Text>
           )}
+        </div>
+
+        {/* Image Upload Section with Preview */}
+        <div className="form-group">
+          <label htmlFor="photo" className="form-label">
+            Photo:
+          </label>
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          {preview && (
+            <div className="image-preview">
+              <img
+                src={preview}
+                alt="Selected Profile Preview"
+                className="preview-image"
+              />
+            </div>
+          )}
+          {imageLoading && <Text type="warning">Uploading image...</Text>}
         </div>
 
         <Button type="primary" htmlType="submit" className="register-button">

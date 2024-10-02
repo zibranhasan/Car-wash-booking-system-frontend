@@ -4,7 +4,7 @@ html {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #f5f7fa;
 }
 
 /* Main Container */
@@ -15,126 +15,88 @@ html {
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Background Elements */
-.update-profile-container::before,
-.update-profile-container::after {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: rgba(58, 123, 213, 0.15);
-  top: -100px;
-  left: -150px;
-  z-index: 0;
-  filter: blur(100px);
-}
-
-.update-profile-container::after {
-  top: unset;
-  bottom: -100px;
-  left: unset;
-  right: -150px;
+  background: #f4f4f4; /* Use a plain, neutral background */
 }
 
 /* Title */
 .update-profile-title {
-  font-size: 3rem;
-  margin-bottom: 2.5rem;
-  color: #1c3144;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
   font-family: "Montserrat", sans-serif;
-  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  font-weight: 600; /* Make the title slightly bold for emphasis */
   text-align: center;
-  z-index: 1;
 }
 
 /* Form Styling */
 .update-profile-form {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  padding: 3rem 2.5rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  border: 1px solid #e0e0e0; /* Use light gray border */
+  border-radius: 12px;
+  padding: 2.5rem 2rem; /* Reduce padding for a compact form */
   width: 100%;
-  max-width: 600px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 1;
-}
-
-.update-profile-form:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+  max-width: 500px; /* Slightly reduce max width for a more compact form */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 /* Form Group */
 .form-group {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
   display: block;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  color: #1c3144;
+  font-size: 1rem;
+  font-weight: 500; /* Use a semi-bold font weight */
+  margin-bottom: 0.5rem;
+  color: #2c3e50; /* Slightly darker text color for labels */
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.85rem;
+  padding: 0.75rem;
   font-size: 1rem;
-  border: 1px solid #bdc3c7;
-  border-radius: 10px;
+  border: 1px solid #ccd1d9; /* Lighter input borders */
+  border-radius: 8px;
   outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #f9f9f9; /* Subtle background color for inputs */
+  transition: border-color 0.3s ease;
 }
 
 .form-group input:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+  border-color: #3498db; /* Simple focus effect */
+}
+
+/* Profile Image Preview */
+.image-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Circular profile image */
+  border: 2px solid #ccd1d9; /* Subtle border around the image */
 }
 
 /* Submit Button */
 .update-button {
   width: 100%;
-  padding: 1rem;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  padding: 0.9rem;
+  background: #3498db;
   border: none;
-  border-radius: 30px;
-  font-size: 1.3rem;
-  font-weight: 700;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600; /* Slightly bold font */
   color: white;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.update-button::before {
-  content: "";
-  position: absolute;
-  width: 300%;
-  height: 300%;
-  top: -75%;
-  left: -100%;
-  background: rgba(255, 255, 255, 0.15);
-  transform: rotate(45deg);
-  transition: 0.6s ease all;
+  transition: background 0.3s ease;
 }
 
 .update-button:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(to right, #2575fc, #6a11cb);
-}
-
-.update-button:hover::before {
-  left: 150%;
+  background: #2980b9; /* Darker blue on hover */
 }
 
 /* Responsive Styling */
@@ -144,7 +106,7 @@ html {
   }
 
   .update-profile-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .update-profile-form {
@@ -156,14 +118,14 @@ html {
   }
 
   .update-button {
-    font-size: 1.1rem;
+    font-size: 1rem;
     padding: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .update-profile-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .update-profile-form {
@@ -175,7 +137,7 @@ html {
   }
 
   .update-button {
-    font-size: 1rem;
+    font-size: 0.95rem;
     padding: 0.65rem;
   }
 }
