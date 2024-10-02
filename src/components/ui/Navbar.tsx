@@ -68,7 +68,6 @@ const Navbar = () => {
     }
   }, [currentUser, refetch]);
 
-  // Renderer for the countdown
   const countdownRenderer = ({
     days,
     hours,
@@ -91,11 +90,9 @@ const Navbar = () => {
     }
   };
 
-  // Ensure the countdown component is only rendered if nextSlotTime is a valid number
   const isValidTime =
     typeof nextSlotTime === "number" && nextSlotTime > Date.now();
 
-  // Menu items
   const items = [
     { key: "1", icon: <HomeOutlined />, label: <Link to="/">Home</Link> },
     {
@@ -103,7 +100,6 @@ const Navbar = () => {
       icon: <AppstoreOutlined />,
       label: <Link to="/services">Services</Link>,
     },
-
     !currentUser && {
       key: "3",
       icon: <LoginOutlined />,
@@ -133,8 +129,8 @@ const Navbar = () => {
   }>;
 
   return (
-    <Header style={{ backgroundColor: "#001529", marginTop: "0" }}>
-      <Row align="middle" justify="space-between" style={{ margin: 0 }}>
+    <Header style={{ backgroundColor: "#001529", marginTop: 0 }}>
+      <Row align="middle" justify="space-between">
         <Col>
           <Title
             level={3}
@@ -150,7 +146,7 @@ const Navbar = () => {
             theme="dark"
             mode="horizontal"
             items={items}
-            style={{ lineHeight: "64px", borderBottom: "none" }}
+            style={{ lineHeight: "64px" }}
           />
         </Col>
         {currentUser && (
@@ -165,13 +161,11 @@ const Navbar = () => {
             >
               <span style={{ marginRight: "10px" }}>Next Slot:</span>
               {isValidTime ? (
-                <div style={{ color: "#e6e6e6", fontSize: "14px" }}>
-                  <Countdown
-                    date={nextSlotTime}
-                    renderer={countdownRenderer}
-                    zeroPadTime={2}
-                  />
-                </div>
+                <Countdown
+                  date={nextSlotTime}
+                  renderer={countdownRenderer}
+                  zeroPadTime={2}
+                />
               ) : (
                 <span>No upcoming slots</span>
               )}

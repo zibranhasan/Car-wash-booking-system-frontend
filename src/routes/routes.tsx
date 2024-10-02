@@ -9,7 +9,7 @@ import Services from "../pages/Services";
 import ServiceDetails from "../pages/ServiceDetails";
 
 import ProtectedRoute from "../components/layouts/ProtectedRoute";
-import SecondaryLayout from "../components/layouts/SecondaryLayout";
+
 import { routesGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
       <>
         <ProtectedRoute>
           {" "}
-          <SecondaryLayout />
+          <App></App>
         </ProtectedRoute>
       </>
     ),
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <ProtectedRoute>
-          <SecondaryLayout />
+          <App></App>
         </ProtectedRoute>
       </>
     ),
