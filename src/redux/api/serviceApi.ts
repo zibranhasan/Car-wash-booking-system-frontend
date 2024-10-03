@@ -31,6 +31,7 @@ export interface TQueryParam {
   value: string | number;
 }
 export type Service = {
+  photo: string | undefined;
   _id: string;
   name: string;
   description: string;

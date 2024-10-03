@@ -156,10 +156,18 @@ const ServiceDetails = () => {
           boxShadow: "0 6px 16px rgba(0, 0, 0, 0.1)",
           overflow: "hidden",
         }}
+        cover={
+          <img
+            alt={service.name}
+            src={service?.photo}
+            style={{ height: "200px", objectFit: "cover" }}
+          />
+        }
       >
         <Title level={2} style={{ marginBottom: 16 }}>
           {service?.name}
         </Title>
+
         <Text style={{ display: "block", marginBottom: 16, fontSize: "16px" }}>
           {service?.description}
         </Text>

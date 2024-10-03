@@ -185,7 +185,9 @@ const ManageService = () => {
 
   return (
     <div style={{ padding: "20px", background: "#f9f9f9", minHeight: "100vh" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+      <h1
+        style={{ textAlign: "center", marginBottom: "20px", color: "#1890ff" }}
+      >
         Manage Services
       </h1>
       <Button

@@ -4,8 +4,9 @@ import "./BookingManagement.css";
 
 const BookingManagement = () => {
   const { data: bookings } = useGetBookingsByUserQuery(undefined);
-  const userBookings = bookings?.response.data || [];
+  const userBookings = bookings?.response?.data || [];
 
+  // Custom countdown renderer for displaying remaining time
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getCountdownRenderer = (props: any) => {
     const { days, hours, minutes, seconds, completed } = props;
@@ -32,7 +33,15 @@ const BookingManagement = () => {
         {userBookings
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .filter((booking: any) => {
-            // Parse the full datetime with date and startTime
+            // Ensure booking and slot properties exist before accessing date and time
+            if (
+              !booking ||
+              !booking.slot ||
+              !booking.slot.date ||
+              !booking.slot.startTime
+            )
+              return false;
+
             const bookingDateTime = new Date(
               `${booking.slot.date}T${booking.slot.startTime}`
             ).getTime();
@@ -41,10 +50,11 @@ const BookingManagement = () => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((booking: any) => (
             <div key={booking._id} className="booking-card">
-              <h3>Service: {booking.service.name}</h3>
-              <p>Date: {booking.slot.date}</p>
+              <h3>Service: {booking?.service?.name || "N/A"}</h3>
+              <p>Date: {booking?.slot?.date || "N/A"}</p>
               <p>
-                Time: {booking.slot.startTime} - {booking.slot.endTime}
+                Time: {booking?.slot?.startTime || "N/A"} -{" "}
+                {booking?.slot?.endTime || "N/A"}
               </p>
               <Countdown
                 date={new Date(
@@ -71,7 +81,15 @@ const BookingManagement = () => {
           {userBookings
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .filter((booking: any) => {
-              // Parse the full datetime with date and startTime
+              // Ensure booking and slot properties exist before accessing date and time
+              if (
+                !booking ||
+                !booking.slot ||
+                !booking.slot.date ||
+                !booking.slot.startTime
+              )
+                return false;
+
               const bookingDateTime = new Date(
                 `${booking.slot.date}T${booking.slot.startTime}`
               ).getTime();
@@ -80,15 +98,17 @@ const BookingManagement = () => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .map((booking: any) => (
               <tr key={booking._id}>
-                <td>{booking.service.name}</td>
-                <td>{booking.slot.date}</td>
+                <td>{booking?.service?.name || "N/A"}</td>
+                <td>{booking?.slot?.date || "N/A"}</td>
                 <td>
-                  {booking.slot.startTime} - {booking.slot.endTime}
+                  {booking?.slot?.startTime || "N/A"} -{" "}
+                  {booking?.slot?.endTime || "N/A"}
                 </td>
                 <td>
-                  {booking.vehicleBrand} {booking.vehicleModel}
+                  {booking?.vehicleBrand || "N/A"}{" "}
+                  {booking?.vehicleModel || "N/A"}
                 </td>
-                <td>{booking.registrationPlate}</td>
+                <td>{booking?.registrationPlate || "N/A"}</td>
               </tr>
             ))}
         </tbody>

@@ -23,15 +23,15 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 interface Slot {
-  _id: string;
-  service: {
+  _id?: string;
+  service?: {
     _id: string;
     name: string;
   };
-  date: string; // ISO date string
-  startTime: string; // HH:mm
-  endTime: string; // HH:mm
-  isBooked: string; // e.g., "booked", "available", "canceled"
+  date?: string; // ISO date string
+  startTime?: string; // HH:mm
+  endTime?: string; // HH:mm
+  isBooked?: string; // e.g., "booked", "available", "canceled"
 }
 
 interface Service {
@@ -62,7 +62,7 @@ const ManageSlots: React.FC = () => {
 
   const filteredSlots = allSlots.filter((slot) => {
     const serviceMatch =
-      !filters.service || slot.service._id === filters.service;
+      !filters.service || slot?.service?._id === filters.service;
     const dateMatch =
       !filters.dateRange ||
       moment(slot.date).isBetween(
@@ -144,9 +144,26 @@ const ManageSlots: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "16px" }}>
-      <h1>All Services</h1>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+    <div
+      style={{
+        padding: "6px",
+        display: "flex",
+        flexDirection: "column",
+
+        justifyContent: "center",
+      }}
+    >
+      <h1 style={{ textAlign: "center", color: "#1890ff" }}>All Services</h1>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "6px",
+          padding: "6px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {allServiceData.map((service) => (
           <Card
             key={service._id}
@@ -177,8 +194,17 @@ const ManageSlots: React.FC = () => {
         ))}
       </div>
 
-      <h2 style={{ marginTop: "32px" }}>All Slots</h2>
-      <div style={{ marginBottom: "16px" }}>
+      <h2
+        style={{
+          marginTop: "32px",
+          textAlign: "center",
+          fontSize: "16px",
+          color: "#1890ff",
+        }}
+      >
+        All Slots
+      </h2>
+      <div style={{ marginBottom: "16px", textAlign: "center" }}>
         <Select
           placeholder="Select Service"
           style={{ width: 200, marginRight: "16px" }}
@@ -198,18 +224,54 @@ const ManageSlots: React.FC = () => {
         />
       </div>
 
-      <Table dataSource={filteredSlots} rowKey="_id">
-        <Table.Column title="Service" dataIndex={["service", "name"]} />
-        <Table.Column title="Date" dataIndex="date" />
-        <Table.Column title="Start Time" dataIndex="startTime" />
-        <Table.Column title="End Time" dataIndex="endTime" />
-        <Table.Column title="Status" dataIndex="isBooked" />
+      <Table<Slot>
+        dataSource={filteredSlots}
+        rowKey="_id"
+        style={{ textAlign: "center" }}
+        bordered
+        pagination={{ pageSize: 10 }} // Configure pagination here
+      >
         <Table.Column
-          title="Action"
-          render={(
-            _text,
-            slot: Slot // Ensure slot is explicitly typed as Slot
-          ) => (
+          title={
+            <span style={{ color: "#1890ff", fontWeight: "bold" }}>
+              Service
+            </span>
+          }
+          dataIndex={["service", "name"]}
+        />
+        <Table.Column
+          title={
+            <span style={{ color: "#1890ff", fontWeight: "bold" }}>Date</span>
+          }
+          dataIndex="date"
+        />
+        <Table.Column
+          title={
+            <span style={{ color: "#1890ff", fontWeight: "bold" }}>
+              Start Time
+            </span>
+          }
+          dataIndex="startTime"
+        />
+        <Table.Column
+          title={
+            <span style={{ color: "#1890ff", fontWeight: "bold" }}>
+              End Time
+            </span>
+          }
+          dataIndex="endTime"
+        />
+        <Table.Column
+          title={
+            <span style={{ color: "#1890ff", fontWeight: "bold" }}>Status</span>
+          }
+          dataIndex="isBooked"
+        />
+        <Table.Column
+          title={
+            <span style={{ color: "#1890ff", fontWeight: "bold" }}>Action</span>
+          }
+          render={(_text, slot) => (
             <>
               <Select
                 defaultValue={slot.isBooked}

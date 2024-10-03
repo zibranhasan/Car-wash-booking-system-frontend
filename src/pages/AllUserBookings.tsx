@@ -78,7 +78,9 @@ const AllUserBookings = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+      <h1
+        style={{ textAlign: "center", marginBottom: "20px", color: "#1890ff" }}
+      >
         All User Bookings
       </h1>
       <div

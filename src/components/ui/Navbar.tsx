@@ -32,7 +32,7 @@ const Navbar = () => {
     skip: !currentUser, // Skip query until the user is logged in
   });
 
-  const userBookings = bookings?.response.data || [];
+  const userBookings = bookings?.response?.data || [];
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,6 +41,10 @@ const Navbar = () => {
       const upcomingBookings = userBookings.filter(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (booking: any) =>
+          booking &&
+          booking.slot &&
+          booking.slot.date &&
+          booking.slot.startTime &&
           new Date(
             `${booking.slot.date}T${booking.slot.startTime}`
           ).getTime() >= now
@@ -91,7 +95,7 @@ const Navbar = () => {
   };
 
   const isValidTime =
-    typeof nextSlotTime === "number" && nextSlotTime > Date.now();
+    typeof nextSlotTime === "number" && nextSlotTime > Date?.now();
 
   const items = [
     { key: "1", icon: <HomeOutlined />, label: <Link to="/">Home</Link> },
