@@ -1,12 +1,31 @@
+import React from "react";
 import { useGetProfileQuery } from "../redux/api/authApi";
-import { Card, Avatar, Typography, Spin } from "antd"; // Ant Design Components
+import {
+  Card,
+  Typography,
+  Row,
+  Col,
+  Avatar,
+  Spin,
+  Divider,
+  Tag,
+  Button,
+} from "antd";
+import {
+  PhoneOutlined,
+  MailOutlined,
+  HomeOutlined,
+  CalendarOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import "./ViewProfile.css";
+import { Link } from "react-router-dom";
 
-const { Title, Text } = Typography; // Destructuring Typography components
+const { Title, Text } = Typography;
 
 const ViewProfile = () => {
   const { data: userProfile, isLoading } = useGetProfileQuery(undefined);
-  const profileData = userProfile?.response.user;
+  const profileData = userProfile?.response?.user;
 
   if (isLoading) {
     return (
@@ -18,52 +37,110 @@ const ViewProfile = () => {
 
   return (
     <div className="profile-container">
-      <Title className="profile-title">User Profile</Title>
+      <Title className="profile-title">My Profile</Title>
       {profileData && (
         <Card
           className="profile-card"
           bordered
-          style={{ width: "100%", maxWidth: 500, margin: "0 auto" }}
+          style={{
+            maxWidth: 800,
+            margin: "20px auto",
+            borderRadius: "15px",
+            padding: "20px",
+            background: "linear-gradient(135deg, #f9f9f9, #ffffff)",
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+          }}
         >
-          {/* Render the user's profile photo */}
-          {profileData.photo && (
-            <Avatar
-              src={profileData.photo}
-              size={120}
-              className="profile-avatar"
-              alt={`${profileData.name}'s Profile`}
-            />
-          )}
+          {/* Profile Header with Avatar and Info */}
+          <Row
+            justify="center"
+            align="middle"
+            gutter={[16, 16]}
+            className="profile-header-row"
+          >
+            <Col xs={24} md={6} className="profile-avatar-col">
+              <Avatar
+                src={profileData.photo}
+                size={150}
+                className="profile-avatar"
+                alt={`${profileData.name}'s Profile`}
+                style={{
+                  border: "3px solid #1890ff",
+                  boxShadow: "0 8px 15px rgba(0, 0, 0, 0.15)",
+                }}
+              />
+            </Col>
+            <Col xs={24} md={12} className="profile-info-col">
+              <Title level={2} className="profile-name">
+                {profileData.name}
+              </Title>
+              <Tag color="blue" style={{ fontSize: "14px" }}>
+                {profileData.role.toUpperCase()}
+              </Tag>
+              <br />
+              <Text type="secondary" style={{ fontSize: "16px" }}>
+                Account verified
+              </Text>
+            </Col>
+            <Col xs={24} md={6} style={{ textAlign: "center" }}>
+              <Link to="/dashboard/user/update-profile">
+                <Button
+                  type="primary"
+                  shape="round"
+                  icon={<EditOutlined />}
+                  size="large"
+                  className="edit-profile-button"
+                >
+                  Edit Profile
+                </Button>
+              </Link>
+            </Col>
+          </Row>
+          <Divider />
 
-          {/* Display user details */}
-          <Title level={2} className="profile-name">
-            {profileData.name}
+          {/* Personal Details Section */}
+          <Title level={4} style={{ color: "#1d3557", textAlign: "left" }}>
+            Personal Details
           </Title>
-          <Text className="profile-text">
-            <strong>Email:</strong> {profileData.email}
-          </Text>
-          <br />
-          <Text className="profile-text">
-            <strong>Phone:</strong> {profileData.phone}
-          </Text>
-          <br />
-          <Text className="profile-text">
-            <strong>Role:</strong> {profileData.role}
-          </Text>
-          <br />
-          <Text className="profile-text">
-            <strong>Address:</strong> {profileData.address}
-          </Text>
-          <br />
-          <Text className="profile-text">
-            <strong>Joined:</strong>{" "}
-            {new Date(profileData.createdAt).toDateString()}
-          </Text>
-          <br />
-          <Text className="profile-text">
-            <strong>Last Updated:</strong>{" "}
-            {new Date(profileData.updatedAt).toLocaleString()}
-          </Text>
+          <Row gutter={[16, 16]} className="profile-details-row">
+            <Col xs={24} sm={12}>
+              <Text className="profile-text">
+                <strong>Phone Number: </strong>
+                <PhoneOutlined style={{ color: "#1890ff", marginRight: 8 }} />
+                {profileData.phone}
+              </Text>
+              <br />
+              <Text className="profile-text">
+                <strong>Email: </strong>
+                <MailOutlined style={{ color: "#1890ff", marginRight: 8 }} />
+                {profileData.email}
+              </Text>
+              <br />
+              <Text className="profile-text">
+                <strong>Date Joined: </strong>
+                <CalendarOutlined
+                  style={{ color: "#1890ff", marginRight: 8 }}
+                />
+                {new Date(profileData.createdAt).toDateString()}
+              </Text>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Text className="profile-text">
+                <strong>Address: </strong>
+                <HomeOutlined style={{ color: "#1890ff", marginRight: 8 }} />
+                {profileData.address}
+              </Text>
+              <br />
+              <Text className="profile-text">
+                <strong>Last Updated: </strong>
+                <CalendarOutlined
+                  style={{ color: "#1890ff", marginRight: 8 }}
+                />
+                {new Date(profileData.updatedAt).toLocaleString()}
+              </Text>
+            </Col>
+          </Row>
+          <Divider />
         </Card>
       )}
     </div>

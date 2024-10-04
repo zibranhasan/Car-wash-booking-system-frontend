@@ -45,7 +45,14 @@ const router = createBrowserRouter([
       },
       {
         path: "services/:id",
-        element: <ServiceDetails />,
+        element: (
+          <>
+            <ProtectedRoute>
+              {" "}
+              <ServiceDetails />
+            </ProtectedRoute>
+          </>
+        ),
       },
       {
         path: "reviews",

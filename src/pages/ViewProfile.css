@@ -5,7 +5,8 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #f4f4f4; /* Soft background color */
+  background: #f0f2f5;
+  padding: 10px;
 }
 
 /* Loading Container */
@@ -19,39 +20,30 @@
 /* Profile Title */
 .profile-title {
   font-size: 2.5rem;
-  font-family: "Georgia", serif; /* Use a classic serif font */
-  color: #333;
+  font-family: "Georgia", serif;
+  color: #1d3557;
   margin-bottom: 2rem;
 }
 
 /* Profile Card */
 .profile-card {
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 1rem 2rem; /* Increase padding for better layout */
-  background-color: #ffffff; /* White background for a formal look */
-  text-align: center; /* Center content */
-  width: 100%;
-  max-width: 500px; /* Set a max width */
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+/* Profile Header */
+.profile-header-row {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Profile Avatar */
 .profile-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 1.5rem auto; /* Center the avatar */
-  width: 150px;
-  height: 150px;
+  margin: 0 auto;
   border-radius: 50%;
-  overflow: hidden; /* Ensure rounded borders */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for the avatar */
-}
-
-.profile-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensure the image covers the entire avatar */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* Profile Name */
@@ -59,38 +51,42 @@
   font-size: 1.8rem;
   color: #1d3557;
   margin-bottom: 1rem;
-  font-family: "Georgia", serif; /* Use the same serif font for a classic touch */
+  font-family: "Georgia", serif;
+  text-align: center;
 }
 
 /* Profile Text */
 .profile-text {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
-  line-height: 1.6;
+  line-height: 1.8;
   margin: 0.5rem 0;
-  font-family: "Arial", sans-serif; /* Clean sans-serif font for details */
+  font-family: "Arial", sans-serif;
+}
+
+/* Edit Profile Button */
+.edit-profile-button {
+  background: #1890ff;
+  border: none;
+  color: #fff;
 }
 
 /* Responsive Styling */
 @media (max-width: 768px) {
-  .profile-container {
-    padding: 1rem;
-  }
-
   .profile-title {
     font-size: 2rem;
   }
 
-  .profile-card {
-    width: 100%;
-    padding: 1rem 1.5rem;
-  }
-
   .profile-name {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
-  .profile-text {
-    font-size: 0.95rem;
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .edit-profile-button {
+    margin-top: 10px;
   }
 }

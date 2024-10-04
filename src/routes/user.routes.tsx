@@ -5,23 +5,13 @@ import ViewProfile from "../pages/ViewProfile";
 
 export const userPaths = [
   {
-    name: "Manage Profile",
-    children: [
-      {
-        name: "View Profile",
-        path: "view-profile",
-        element: <ViewProfile />,
-      },
-      {
-        name: "Update Profile",
-        path: "update-profile",
-        element: <UpdateProfile />,
-      },
-    ],
-  },
-  {
-    name: "My-Bookings",
+    name: "Dashboard",
     path: "bookingsManagement",
     element: <BookingManagement />,
   },
+  {
+    path: "update-profile",
+    element: <UpdateProfile />,
+  },
+  { name: "My Profile", path: "view-profile", element: <ViewProfile /> },
 ];

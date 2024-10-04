@@ -1,4 +1,5 @@
-import { Menu, Layout, Row, Col, Typography } from "antd";
+import React, { useState, useEffect } from "react";
+import { Menu, Layout, Row, Col, Typography, Button, Drawer } from "antd";
 import { Link } from "react-router-dom";
 import {
   HomeOutlined,
@@ -6,13 +7,13 @@ import {
   LoginOutlined,
   UserAddOutlined,
   LogoutOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import Countdown from "react-countdown";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store";
 import { handleLogout } from "../../redux/features/authSlice";
 import { useGetBookingsByUserQuery } from "../../redux/api/bookingApi";
-import { useEffect } from "react";
 import {
   setNextSlotTime,
   clearNextSlotTime,
@@ -22,6 +23,8 @@ const { Header } = Layout;
 const { Title } = Typography;
 
 const Navbar = () => {
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
   const nextSlotTime = useSelector(
     (state: RootState) => state.countdown.nextSlotTime
   );
@@ -29,18 +32,16 @@ const Navbar = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const { data: bookings, refetch } = useGetBookingsByUserQuery(undefined, {
-    skip: !currentUser, // Skip query until the user is logged in
+    skip: !currentUser,
   });
 
   const userBookings = bookings?.response?.data || [];
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const updateNextSlotTime = (userBookings: any) => {
+    const updateNextSlotTime = (userBookings) => {
       const now = new Date().getTime();
       const upcomingBookings = userBookings.filter(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (booking: any) =>
+        (booking) =>
           booking &&
           booking.slot &&
           booking.slot.date &&
@@ -68,18 +69,11 @@ const Navbar = () => {
 
   useEffect(() => {
     if (currentUser) {
-      refetch(); // Refetch bookings immediately after login
+      refetch();
     }
   }, [currentUser, refetch]);
 
-  const countdownRenderer = ({
-    days,
-    hours,
-    minutes,
-    seconds,
-    completed,
-  }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  any) => {
+  const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       return <span>No upcoming slots</span>;
     } else {
@@ -95,7 +89,7 @@ const Navbar = () => {
   };
 
   const isValidTime =
-    typeof nextSlotTime === "number" && nextSlotTime > Date?.now();
+    typeof nextSlotTime === "number" && nextSlotTime > Date.now();
 
   const items = [
     { key: "1", icon: <HomeOutlined />, label: <Link to="/">Home</Link> },
@@ -126,15 +120,12 @@ const Navbar = () => {
         </span>
       ),
     },
-  ].filter(Boolean) as Array<{
-    key: string;
-    icon: JSX.Element;
-    label: JSX.Element;
-  }>;
+  ].filter(Boolean);
 
   return (
-    <Header style={{ backgroundColor: "#001529", marginTop: 0 }}>
-      <Row align="middle" justify="space-between">
+    <Header style={{ backgroundColor: "#001529", padding: "0 20px" }}>
+      <Row justify="space-between" align="middle" style={{ width: "100%" }}>
+        {/* Logo on the left */}
         <Col>
           <Title
             level={3}
@@ -145,20 +136,52 @@ const Navbar = () => {
             </Link>
           </Title>
         </Col>
-        <Col>
+
+        {/* Desktop Menu */}
+        <Col xs={0} sm={0} md={16} lg={26}>
           <Menu
             theme="dark"
             mode="horizontal"
             items={items}
-            style={{ lineHeight: "64px" }}
+            style={{ lineHeight: "64px", borderBottom: "none" }}
           />
         </Col>
+
+        {/* Mobile Menu Icon */}
+        <Col xs={24} sm={24} md={0} lg={0} style={{ textAlign: "right" }}>
+          <Button
+            type="primary"
+            icon={<MenuOutlined />}
+            onClick={() => setDrawerVisible(true)}
+            style={{ marginTop: "8px" }}
+          />
+        </Col>
+
+        {/* Mobile Drawer Menu */}
+        <Drawer
+          title="Menu"
+          placement="right"
+          closable={true}
+          onClose={() => setDrawerVisible(false)}
+          visible={drawerVisible}
+        >
+          <Menu theme="light" mode="vertical" items={items} />
+        </Drawer>
+
+        {/* Countdown Timer */}
         {currentUser && (
-          <Col>
+          <Col
+            xs={0}
+            sm={0}
+            md={8}
+            lg={8}
+            style={{ textAlign: "right", marginTop: "8px" }}
+          >
             <div
               style={{
                 color: "white",
                 display: "flex",
+                justifyContent: "flex-end",
                 alignItems: "center",
                 fontSize: "14px",
               }}

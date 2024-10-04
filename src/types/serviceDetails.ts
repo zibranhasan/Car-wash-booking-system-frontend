@@ -12,6 +12,7 @@ export interface TimeSlot {
 
 // Define the type for service details
 export interface Service {
+  photo: string | undefined;
   _id: string;
   name: string;
   description: string;
