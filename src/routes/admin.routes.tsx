@@ -1,3 +1,4 @@
+import AdminDashboard from "../pages/AdminDashboard";
 import AllUserBookings from "../pages/AllUserBookings";
 
 import ManageService from "../pages/ManageService";
@@ -5,6 +6,11 @@ import ManageSlots from "../pages/ManageSlots";
 import UsersProfile from "../pages/UsersProfile";
 
 export const adminPaths = [
+  {
+    name: "Dashboard",
+    path: "adminDashboard",
+    element: <AdminDashboard />,
+  },
   {
     name: "Service Management",
     children: [

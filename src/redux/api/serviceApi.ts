@@ -31,6 +31,8 @@ export interface TQueryParam {
   value: string | number;
 }
 export type Service = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  reviews: number[];
   photo: string | undefined;
   _id: string;
   name: string;

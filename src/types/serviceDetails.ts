@@ -12,12 +12,14 @@ export interface TimeSlot {
 
 // Define the type for service details
 export interface Service {
-  photo: string | undefined;
+  photo: string;
   _id: string;
   name: string;
+
   description: string;
   price: number;
   duration: number;
+  reviews: number[];
 }
 
 // Define the response structure for service details query

@@ -22,14 +22,16 @@ html {
   background: white;
   padding: 3px 5px; /* Adjusted padding for a compact design */
   border-radius: 20px;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 450px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid #e9e9e9;
 }
 
 .login-card:hover {
   transform: translateY(-10px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Title and Subtitle */
@@ -37,12 +39,14 @@ html {
   text-align: center;
   color: #333;
   font-size: 28px;
+  font-weight: bold;
 }
 
 .sub-title {
   text-align: center;
   color: #777;
   margin-bottom: 20px;
+  font-size: 14px;
 }
 
 /* Form group styling */
@@ -57,6 +61,8 @@ html {
   font-size: 16px;
   font-weight: 600;
   color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Input field styling */
@@ -80,14 +86,14 @@ html {
   font-size: 12px;
   color: #ff4d4f;
   margin-top: 5px;
+  font-weight: bold;
 }
 
 /* Primary Login button */
 .login-button {
   width: 100%;
-  color: #40a9ff;
-  background-color: #c7ddf2;
-  border: 2px solid #278eef;
+  background-color: #40a9ff;
+  border: none;
   color: rgb(255, 255, 255);
   font-size: 16px;
   padding: 14px 0;
@@ -96,8 +102,9 @@ html {
 }
 
 .login-button:hover {
-  background-color: #40a9ff;
+  background-color: #278eef;
   transform: scale(1.03);
+  cursor: pointer;
 }
 
 /* Google Login Button */
@@ -121,6 +128,23 @@ html {
 .google-login-button:hover {
   border-color: #40a9ff;
   transform: scale(1.03);
+  cursor: pointer;
+}
+
+/* Credentials buttons */
+.credentials-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.credentials-buttons button {
+  color: #40a9ff;
+  text-decoration: underline;
+}
+
+.credentials-buttons button:hover {
+  color: #278eef;
 }
 
 /* Register redirect */
@@ -138,6 +162,35 @@ html {
 .register-button {
   color: #40a9ff;
   font-weight: bold;
+}
+
+.register-button:hover {
+  color: #278eef;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Divider Styling */
+.ant-divider {
+  border-color: #e8e8e8;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-container {
+  animation: fadeIn 0.6s ease;
 }
 
 /* Responsive design for mobile devices */
@@ -160,4 +213,37 @@ html {
     width: 100%;
     margin-top: 10px;
   }
+
+  .credentials-buttons {
+    flex-direction: column;
+  }
+
+  .credentials-buttons button {
+    margin-bottom: 5px;
+  }
+}
+
+/* Modal styling */
+.ant-modal-content {
+  border-radius: 15px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.ant-modal-header {
+  background-color: #40a9ff;
+  color: #fff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.ant-modal-title {
+  color: white;
+}
+
+.ant-modal-close-x {
+  color: white;
+}
+
+.ant-modal-footer button {
+  border-radius: 8px;
 }

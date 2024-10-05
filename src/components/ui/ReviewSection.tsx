@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 import { Button, Input, Card, Col, Row, Typography, Avatar } from "antd";
-import { StarFilled } from "@ant-design/icons"; // Ant Design icon for star
+import { StarFilled } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 
@@ -56,8 +56,19 @@ const ReviewSection = ({
   const lastTwoReviews = reviews.slice(-2);
 
   return (
-    <Row gutter={[20, 20]} style={{ padding: "10px" }}>
-      <Col span={16}>
+    <Row
+      gutter={[20, 20]}
+      style={{ padding: "10px" }}
+      justify="center" // Center align the content on smaller screens
+    >
+      {/* Responsive Column for Review Summary and Recent Reviews */}
+      <Col
+        xs={24} // Full width on extra small screens
+        sm={24}
+        md={16} // 2/3 width on medium screens
+        lg={16}
+        xl={16}
+      >
         <Card
           bordered={false}
           style={{
@@ -66,6 +77,7 @@ const ReviewSection = ({
             borderRadius: "10px",
             border: "1px solid #d6e0f5",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            marginBottom: "20px",
           }}
         >
           <Title level={3} style={{ color: "#2c3e50", marginBottom: "16px" }}>
@@ -101,24 +113,22 @@ const ReviewSection = ({
                     justifyContent: "space-between",
                   }}
                 >
-                  {/* User's photo in a small circle */}
                   <Avatar
                     src={review?.userId?.photo}
                     size={32}
                     style={{
                       marginRight: "12px",
                       border: "2px solid #5899f5",
-                      flexShrink: 0, // Prevent the avatar from shrinking
+                      flexShrink: 0,
                     }}
                   >
                     {review?.userId?.name?.[0].toUpperCase()}
                   </Avatar>
-                  {/* Container for name and feedback */}
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      flex: 1, // Allow this container to take up remaining space
+                      flex: 1,
                       marginLeft: "8px",
                     }}
                   >
@@ -130,7 +140,7 @@ const ReviewSection = ({
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        maxWidth: "150px", // Set a max width to prevent long names from pushing other elements
+                        maxWidth: "150px",
                       }}
                     >
                       {review?.userId?.name}:
@@ -146,13 +156,12 @@ const ReviewSection = ({
                       {review.feedback}
                     </Text>
                   </div>
-                  {/* Rating text aligned to the right */}
                   <Text
                     style={{
                       color: "#fa8c16",
                       marginLeft: "12px",
                       whiteSpace: "nowrap",
-                      flexShrink: 0, // Prevent the rating text from shrinking
+                      flexShrink: 0,
                     }}
                   >
                     ({review.rating} stars)
@@ -163,7 +172,9 @@ const ReviewSection = ({
           </div>
         </Card>
       </Col>
-      <Col span={8}>
+
+      {/* Responsive Column for Review Form and Login CTA */}
+      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
         {!isLoggedIn ? (
           <Card
             bordered={false}

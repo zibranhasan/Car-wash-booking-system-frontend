@@ -124,7 +124,7 @@ const UsersProfile = () => {
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
           borderRadius: "10px",
         }}
-        rowClassName={(record, index) =>
+        rowClassName={(_record, index) =>
           index % 2 === 0 ? "table-row-light" : "table-row-dark"
         }
       />

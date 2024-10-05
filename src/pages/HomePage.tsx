@@ -1,5 +1,8 @@
+import BlogSection from "../components/ui/BlogSection";
 import HeroSection from "../components/ui/HeroSection";
+
 import ReviewSection from "../components/ui/ReviewSection";
+import SpecialOffers from "../components/ui/SpecialOffers";
 
 import {
   useCreateReviewMutation,
@@ -7,6 +10,8 @@ import {
 } from "../redux/api/reviewApi";
 import { useAppSelector } from "../redux/hook";
 import FeaturedServices from "./FeaturedServices";
+
+import AboutUs from "../components/ui/AboutUs";
 
 const HomePage = () => {
   const { token } = useAppSelector((state) => state.auth);
@@ -21,16 +26,21 @@ const HomePage = () => {
     allReviewData.length;
 
   return (
-    <div>
+    <>
       <HeroSection />
-      <FeaturedServices />
-      <ReviewSection
-        reviews={allReviewData}
-        overallRating={overallRating}
-        isLoggedIn={!!token}
-        onSubmitReview={createReview}
-      />
-    </div>
+      <div style={{ padding: "0px 10px" }}>
+        <SpecialOffers />
+        <FeaturedServices />
+        <ReviewSection
+          reviews={allReviewData}
+          overallRating={overallRating}
+          isLoggedIn={!!token}
+          onSubmitReview={createReview}
+        />
+        <BlogSection />
+        <AboutUs />
+      </div>
+    </>
   );
 };
 

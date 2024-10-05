@@ -11,6 +11,14 @@ const reviewManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["review"],
     }),
+    createRating: builder.mutation({
+      query: (reviewInfo) => ({
+        url: `/services/${reviewInfo.id}/review`,
+        method: "POST",
+        body: reviewInfo,
+      }),
+      invalidatesTags: ["review"],
+    }),
     getAllReview: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -36,5 +44,8 @@ const reviewManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllReviewQuery, useCreateReviewMutation } =
-  reviewManagementApi;
+export const {
+  useGetAllReviewQuery,
+  useCreateReviewMutation,
+  useCreateRatingMutation,
+} = reviewManagementApi;

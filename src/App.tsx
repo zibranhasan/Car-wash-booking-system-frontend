@@ -22,9 +22,20 @@ import { useAppSelector } from "./redux/hook";
 import Sidebar from "./components/layouts/Sidebar";
 import Footer from "./components/ui/Footer";
 import "./App.css";
+import { MenuProps } from "antd";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
+
+// Define types for slot and booking
+interface Slot {
+  date: string;
+  startTime: string;
+}
+
+interface Booking {
+  slot?: Slot; // slot can be undefined, so mark it optional
+}
 
 const App: React.FC = () => {
   // State & Redux Hooks
@@ -40,11 +51,11 @@ const App: React.FC = () => {
     skip: !currentUser,
   });
 
-  const userBookings = bookings?.response?.data || [];
+  const userBookings: Booking[] = bookings?.response?.data || [];
 
   useEffect(() => {
     // Determine the next slot time for countdown
-    const updateNextSlotTime = (userBookings) => {
+    const updateNextSlotTime = (userBookings: Booking[]) => {
       const now = new Date().getTime();
       const upcomingBookings = userBookings.filter(
         (booking) =>
@@ -58,7 +69,7 @@ const App: React.FC = () => {
       if (upcomingBookings.length > 0) {
         const nextSlot = upcomingBookings[0];
         const nextSlotTime = new Date(
-          `${nextSlot.slot.date}T${nextSlot.slot.startTime}`
+          `${nextSlot.slot!.date}T${nextSlot.slot!.startTime}`
         ).getTime();
         dispatch(setNextSlotTime(nextSlotTime));
       } else {
@@ -77,7 +88,22 @@ const App: React.FC = () => {
     }
   }, [currentUser, refetch]);
 
-  const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
+  // Define props for the countdown renderer
+  interface CountdownRendererProps {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    completed: boolean;
+  }
+
+  const countdownRenderer = ({
+    days,
+    hours,
+    minutes,
+    seconds,
+    completed,
+  }: CountdownRendererProps) => {
     if (completed) {
       return <span>No upcoming slots</span>;
     }
@@ -94,37 +120,39 @@ const App: React.FC = () => {
   const isValidTime =
     typeof nextSlotTime === "number" && nextSlotTime > Date.now();
 
-  // Menu Items Configuration
-  const items = [
+  const items: MenuProps["items"] = [
     { key: "1", icon: <HomeOutlined />, label: <Link to="/">Home</Link> },
     {
       key: "2",
       icon: <AppstoreOutlined />,
       label: <Link to="/services">Services</Link>,
     },
-    !currentUser && {
-      key: "3",
-      icon: <LoginOutlined />,
-      label: <Link to="/login">Login</Link>,
-    },
-    !currentUser && {
-      key: "4",
-      icon: <UserAddOutlined />,
-      label: <Link to="/register">Register</Link>,
-    },
-    currentUser && {
-      key: "5",
-      icon: <LogoutOutlined />,
-      label: (
-        <span
-          onClick={() => dispatch(handleLogout())}
-          style={{ cursor: "pointer" }}
-        >
-          Logout
-        </span>
-      ),
-    },
-  ].filter(Boolean);
+    currentUser
+      ? {
+          key: "5",
+          icon: <LogoutOutlined />,
+          label: (
+            <span
+              onClick={() => dispatch(handleLogout())}
+              style={{ cursor: "pointer" }}
+            >
+              Logout
+            </span>
+          ),
+        }
+      : [
+          {
+            key: "3",
+            icon: <LoginOutlined />,
+            label: <Link to="/login">Login</Link>,
+          },
+          {
+            key: "4",
+            icon: <UserAddOutlined />,
+            label: <Link to="/register">Register</Link>,
+          },
+        ],
+  ].flat() as MenuProps["items"];
 
   return (
     <Layout
@@ -137,7 +165,11 @@ const App: React.FC = () => {
           <Col>
             <Title
               level={3}
-              style={{ color: "white", margin: 0, fontSize: "25px" }}
+              style={{
+                color: "white",
+                margin: 0,
+                fontSize: "25px",
+              }}
             >
               <Link to="/" style={{ color: "white" }}>
                 CarWashBooker
@@ -146,12 +178,15 @@ const App: React.FC = () => {
           </Col>
 
           {/* Desktop Menu */}
-          <Col xs={0} sm={0} md={16} lg={6}>
+          <Col xs={0} sm={0} md={16} lg={8}>
             <Menu
               theme="dark"
               mode="horizontal"
               items={items}
-              style={{ lineHeight: "64px", borderBottom: "none" }}
+              style={{
+                lineHeight: "56px",
+                borderBottom: "none",
+              }}
             />
           </Col>
 
@@ -213,7 +248,14 @@ const App: React.FC = () => {
       <Layout style={{ flex: 1, display: "flex" }}>
         {token && <Sidebar />}{" "}
         {/* Render Sidebar only if a token is available */}
-        <Content style={{ flex: 1, margin: 0, background: "#f0f2f5" }}>
+        <Content
+          style={{
+            flex: 1,
+            margin: 0,
+            background: "#f0f2f5",
+            padding: "0px 1px",
+          }}
+        >
           <Outlet /> {/* Render the main content area */}
         </Content>
       </Layout>

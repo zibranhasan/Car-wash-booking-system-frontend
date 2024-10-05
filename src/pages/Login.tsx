@@ -1,10 +1,11 @@
-import { Button, Input, Typography, Card, Divider } from "antd";
+import { Button, Input, Typography, Card, Divider, Modal } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { useAppDispatch } from "../redux/hook";
 import { useLoginMutation } from "../redux/api/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { setUser } from "../redux/features/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import "./Login.css";
 
 const { Text, Title } = Typography;
@@ -13,6 +14,7 @@ const Login = () => {
   const {
     control,
     handleSubmit,
+    setValue, // Allows programmatically setting form values
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -31,6 +33,31 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  // Modal visibility states
+  const [isAdminModalVisible, setIsAdminModalVisible] = useState(false);
+  const [isUserModalVisible, setIsUserModalVisible] = useState(false);
+
+  // Open modals
+  const showAdminModal = () => setIsAdminModalVisible(true);
+  const showUserModal = () => setIsUserModalVisible(true);
+
+  // Close modals
+  const handleAdminModalClose = () => setIsAdminModalVisible(false);
+  const handleUserModalClose = () => setIsUserModalVisible(false);
+
+  // Auto-fill credentials
+  const handleAdminFill = () => {
+    setValue("email", "admin@gmail.com");
+    setValue("password", "123456");
+    setIsAdminModalVisible(false); // Close modal after filling credentials
+  };
+
+  const handleUserFill = () => {
+    setValue("email", "user1@gmail.com");
+    setValue("password", "123456");
+    setIsUserModalVisible(false); // Close modal after filling credentials
+  };
 
   const onSubmit = async (data: TuserInfo) => {
     try {
@@ -79,6 +106,15 @@ const Login = () => {
                 {errors.email?.message}
               </Text>
             )}
+            {/* Buttons for Admin and User credentials */}
+            <div className="credentials-buttons">
+              <Button type="link" onClick={showAdminModal}>
+                Admin credentials
+              </Button>
+              <Button type="link" onClick={showUserModal}>
+                User credentials
+              </Button>
+            </div>
           </div>
 
           <div className="form-group">
@@ -138,6 +174,30 @@ const Login = () => {
           </div>
         </form>
       </Card>
+
+      {/* Admin Credentials Modal */}
+      <Modal
+        title="Admin Credentials"
+        visible={isAdminModalVisible}
+        onOk={handleAdminFill}
+        onCancel={handleAdminModalClose}
+        okText="Fill Credentials"
+      >
+        <p>Email: admin@gmail.com</p>
+        <p>Password: 123456</p>
+      </Modal>
+
+      {/* User Credentials Modal */}
+      <Modal
+        title="User Credentials"
+        visible={isUserModalVisible}
+        onOk={handleUserFill}
+        onCancel={handleUserModalClose}
+        okText="Fill Credentials"
+      >
+        <p>Email: user1@gmail.com</p>
+        <p>Password: 123456</p>
+      </Modal>
     </div>
   );
 };

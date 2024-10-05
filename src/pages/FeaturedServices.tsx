@@ -1,12 +1,13 @@
 import { useGetAllServiceQuery } from "../redux/api/serviceApi";
-import { Card, Row, Col, Spin, Button } from "antd";
+import { Card, Row, Col, Spin, Button, Rate } from "antd";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { DollarOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 const FeaturedServices = () => {
   const { data: servicesData, isLoading } = useGetAllServiceQuery(undefined);
-  const services = servicesData?.data.data || [];
+  const services = servicesData?.data?.data || []; // Ensure services is an array
+  console.log(services);
 
   if (isLoading) {
     return (
@@ -17,6 +18,14 @@ const FeaturedServices = () => {
       </div>
     );
   }
+
+  // Function to calculate average rating from the reviews array
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const calculateAverageRating = (reviews: number[]) => {
+    if (!reviews || reviews.length === 0) return 0; // Return 0 if no reviews
+    const total = reviews.reduce((acc, rating) => acc + rating, 0); // Summing the ratings
+    return total / reviews.length; // Return average
+  };
 
   // Animation variants for Framer Motion
   const cardVariants = {
@@ -58,7 +67,7 @@ const FeaturedServices = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                   overflow: "hidden",
-                  height: "400px", // Uniform card height
+                  height: "420px",
                   backgroundColor: "#fff",
                   border: "1px solid #e6e6e6",
                   position: "relative",
@@ -76,6 +85,14 @@ const FeaturedServices = () => {
                 >
                   {service.name}
                 </h3>
+
+                {/* Average rating display */}
+                <Rate
+                  disabled
+                  value={calculateAverageRating(service?.reviews)} // Call the function with reviews
+                  style={{ fontSize: "16px", marginBottom: "8px" }}
+                />
+
                 {/* Price and Duration with icons */}
                 <p
                   style={{
@@ -99,6 +116,7 @@ const FeaturedServices = () => {
                     <strong></strong> {service.duration} mins
                   </span>
                 </p>
+
                 {/* Description truncated to a single line */}
                 <p
                   style={{
@@ -112,6 +130,7 @@ const FeaturedServices = () => {
                 >
                   {service.description}
                 </p>
+
                 {/* "See All" button */}
                 <div
                   style={{

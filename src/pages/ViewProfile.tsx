@@ -1,4 +1,3 @@
-import React from "react";
 import { useGetProfileQuery } from "../redux/api/authApi";
 import {
   Card,

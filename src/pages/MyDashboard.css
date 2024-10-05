@@ -1,0 +1,33 @@
+.dashboard-container {
+  padding: 20px;
+  background: #f0f2f5; /* Light background for better contrast */
+  min-height: 100vh;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-family: "Georgia", serif;
+  color: #1d3557;
+  margin-bottom: 20px;
+}
+
+.dashboard-card {
+  text-align: center;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.no-transaction-data {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+}
