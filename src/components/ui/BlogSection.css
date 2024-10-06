@@ -1,33 +1,74 @@
-/* BlogSection.css */
 .blog-section {
-  padding: 40px 20px;
-  background-color: #f9f9f9;
-  margin-bottom: 60px; /* This creates the gap between sections */
+  padding: 20px;
 }
 
 .section-title {
   text-align: center;
-  font-size: 36px;
-  color: #333;
+  font-size: 32px;
   margin-bottom: 40px;
+  font-weight: bold;
+  color: #333;
 }
 
 .blog-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.blog-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.card-image {
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #e8e8e8;
 }
 
-.blog-card-content {
-  padding: 20px;
+.blog-title {
+  font-size: 18px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.blog-description {
+  font-size: 14px;
+  color: #555;
 }
 
 .blog-date {
-  margin-top: 10px;
   font-size: 12px;
   color: #888;
-  text-align: right;
+  margin-bottom: 10px;
+}
+
+.read-more-btn {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #1890ff;
+  border: none;
+  color: white;
+}
+
+.blog-modal {
+  max-width: 800px;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.modal-date {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.modal-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
 }

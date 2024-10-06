@@ -42,7 +42,7 @@ const HeroSection = () => {
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                height: "300px", // Adjust the height as needed
+                height: "400px", // Adjust the height as needed
               }}
             >
               <div className="carousel-content">

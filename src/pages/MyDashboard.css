@@ -15,15 +15,24 @@
   text-align: center;
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
+  height: 150px; /* Set a fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+}
+
+.dashboard-card-title {
+  margin: 0; /* Reduce margin of title */
+  font-size: 2rem; /* Adjust font size */
+}
+
+.dashboard-card-text {
+  margin-top: 4px; /* Reduce space between title and text */
+  font-size: 1rem; /* Adjust font size */
 }
 
 .dashboard-card:hover {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-card img {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
 .no-transaction-data {

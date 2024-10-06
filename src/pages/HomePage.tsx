@@ -26,21 +26,21 @@ const HomePage = () => {
     allReviewData.length;
 
   return (
-    <>
+    <div style={{ margin: "0px" }}>
       <HeroSection />
-      <div style={{ padding: "0px 10px" }}>
-        <SpecialOffers />
-        <FeaturedServices />
-        <ReviewSection
-          reviews={allReviewData}
-          overallRating={overallRating}
-          isLoggedIn={!!token}
-          onSubmitReview={createReview}
-        />
-        <BlogSection />
-        <AboutUs />
-      </div>
-    </>
+
+      <SpecialOffers />
+      <FeaturedServices />
+      <ReviewSection
+        reviews={allReviewData}
+        overallRating={overallRating}
+        isLoggedIn={!!token}
+        onSubmitReview={createReview}
+      />
+      <BlogSection />
+
+      <AboutUs />
+    </div>
   );
 };
 

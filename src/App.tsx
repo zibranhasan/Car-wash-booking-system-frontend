@@ -159,7 +159,7 @@ const App: React.FC = () => {
       style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
     >
       {/* Header Navbar */}
-      <Header style={{ backgroundColor: "#001529", padding: "0 20px" }}>
+      <Header style={{ backgroundColor: "#001529" }}>
         <Row justify="space-between" align="middle" style={{ width: "100%" }}>
           {/* Logo on the Left */}
           <Col>

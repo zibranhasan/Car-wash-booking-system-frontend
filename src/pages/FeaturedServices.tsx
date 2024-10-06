@@ -35,7 +35,7 @@ const FeaturedServices = () => {
   };
 
   return (
-    <div style={{ padding: "25px", backgroundColor: "#f4f7f9" }}>
+    <div style={{ padding: "15px" }}>
       <Row gutter={[32, 32]} justify="center">
         {services.slice(0, 8).map((service) => (
           <Col xs={24} sm={12} md={8} lg={6} key={service._id}>
@@ -53,7 +53,7 @@ const FeaturedServices = () => {
                     src={service.photo}
                     alt={service.name}
                     style={{
-                      height: "160px",
+                      height: "180px",
                       objectFit: "cover",
                       borderTopLeftRadius: "10px",
                       borderTopRightRadius: "10px",
@@ -67,20 +67,19 @@ const FeaturedServices = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                   overflow: "hidden",
-                  height: "420px",
-                  backgroundColor: "#fff",
-                  border: "1px solid #e6e6e6",
+                  height: "360px", // Reduce height to remove extra space
+                  border: "1px solid #001529",
                   position: "relative",
                   transition: "all 0.3s ease-in-out",
                 }}
-                bodyStyle={{ padding: "20px" }}
+                bodyStyle={{ padding: "12px 16px" }} // Reduce padding inside the card body
               >
                 <h3
                   style={{
                     color: "#3b5998",
-                    fontSize: "20px",
+                    fontSize: "18px", // Reduce font size slightly
                     fontWeight: "600",
-                    marginBottom: "12px",
+                    marginBottom: "8px", // Reduce margin between the title and the rating
                   }}
                 >
                   {service.name}
@@ -90,59 +89,53 @@ const FeaturedServices = () => {
                 <Rate
                   disabled
                   value={calculateAverageRating(service?.reviews)} // Call the function with reviews
-                  style={{ fontSize: "16px", marginBottom: "8px" }}
+                  style={{ fontSize: "14px", marginBottom: "4px" }} // Adjust size and margin
                 />
 
                 {/* Price and Duration with icons */}
                 <p
                   style={{
-                    margin: "12px 0",
                     color: "#555",
-                    fontSize: "16px",
+                    fontSize: "14px", // Adjust font size
                     display: "flex",
                     justifyContent: "space-between",
+                    marginBottom: "10px", // Reduce bottom margin to decrease gap
                   }}
                 >
                   <span>
                     <DollarOutlined
                       style={{ marginRight: "5px", color: "#1890ff" }}
                     />
-                    <strong></strong> ${service.price}
+                    <strong>${service.price}</strong>
                   </span>
                   <span>
                     <ClockCircleOutlined
                       style={{ marginRight: "5px", color: "#1890ff" }}
                     />
-                    <strong></strong> {service.duration} mins
+                    <strong>{service.duration} mins</strong>
                   </span>
-                </p>
-
-                {/* Description truncated to a single line */}
-                <p
-                  style={{
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    color: "#777",
-                    fontSize: "14px",
-                    marginBottom: "16px",
-                  }}
-                >
-                  {service.description}
                 </p>
 
                 {/* "See All" button */}
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "20px",
-                    left: "20px",
-                    right: "20px",
+                    bottom: "15px",
+                    left: "15px",
+                    right: "15px",
                     textAlign: "center",
                   }}
                 >
                   <Link to={`/services/${service._id}`}>
-                    <Button type="primary">Book This Service</Button>
+                    <Button
+                      style={{
+                        backgroundColor: "#001529",
+                        borderColor: "#001529",
+                        color: "#fff",
+                      }}
+                    >
+                      Book This Service
+                    </Button>
                   </Link>
                 </div>
               </Card>
@@ -152,9 +145,15 @@ const FeaturedServices = () => {
       </Row>
 
       {/* "All Services" button below the card container */}
-      <div style={{ textAlign: "center", marginTop: "40px" }}>
+      <div style={{ textAlign: "center", paddingTop: "20px" }}>
         <Link to="/services">
-          <Button type="primary" size="large">
+          <Button
+            style={{
+              backgroundColor: "#001529",
+              borderColor: "#001529",
+              color: "#fff",
+            }}
+          >
             All Services
           </Button>
         </Link>

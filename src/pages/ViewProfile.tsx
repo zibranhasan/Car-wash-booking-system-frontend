@@ -40,14 +40,12 @@ const ViewProfile = () => {
       {profileData && (
         <Card
           className="profile-card"
-          bordered
+          bordered={false} // Disable the border
           style={{
-            maxWidth: 800,
-            margin: "20px auto",
-            borderRadius: "15px",
+            width: "100%", // Full width
+            height: "100%", // Full height
             padding: "20px",
-            background: "linear-gradient(135deg, #f9f9f9, #ffffff)",
-            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+            background: "#ffffff", // Keep a clean background
           }}
         >
           {/* Profile Header with Avatar and Info */}
