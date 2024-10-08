@@ -118,7 +118,7 @@ const Services = () => {
                     borderRadius: 10,
                     overflow: "hidden",
                     width: "100%",
-                    height: "480px", // Adjust height to fit the rating
+                    height: "450px", // Adjust height to fit the rating
                     border: "1px solid #5899f5",
                     display: "flex",
                     flexDirection: "column",
@@ -146,7 +146,7 @@ const Services = () => {
                         level={4}
                         style={{
                           textAlign: "center",
-                          height: "40px",
+                          height: "20px",
                           opacity: "0.7", // Adjust transparency as needed (0 to 1)
                           fontSize: "inherit", // Allows font size to adjust based on content
                           lineHeight: "1.5", // Adjust line height for readability
@@ -164,6 +164,7 @@ const Services = () => {
                           marginBottom: "10px",
                           display: "block",
                           textAlign: "center",
+                          height: "35px",
                         }}
                       >
                         {service.description.slice(0, 40)}
