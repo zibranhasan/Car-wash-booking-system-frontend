@@ -97,51 +97,53 @@ const BookingManagement = () => {
       </div>
 
       <h2>Past Bookings</h2>
-      <table className="booking-table">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Vehicle</th>
-            <th>Registration</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userBookings
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            .filter((booking: any) => {
-              const bookingDateTime = new Date(
-                `${booking.slot.date}T${booking.slot.startTime}`
-              ).getTime();
-              return bookingDateTime < now;
-            })
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            .map((booking: any) => (
-              <tr key={booking._id}>
-                <td>{booking?.service?.name || "N/A"}</td>
-                <td>{booking?.slot?.date || "N/A"}</td>
-                <td>
-                  {booking?.slot?.startTime || "N/A"} -{" "}
-                  {booking?.slot?.endTime || "N/A"}
-                </td>
-                <td>{`${booking?.vehicleBrand || "N/A"} ${
-                  booking?.vehicleModel || "N/A"
-                }`}</td>
-                <td>{booking?.registrationPlate || "N/A"}</td>
-                <td>
-                  <Button
-                    type="primary"
-                    onClick={() => handleOpenReviewModal(booking.service._id)}
-                  >
-                    Give Rating
-                  </Button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <div className="booking-table-container">
+        <table className="booking-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Vehicle</th>
+              <th>Registration</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userBookings
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              .filter((booking: any) => {
+                const bookingDateTime = new Date(
+                  `${booking.slot.date}T${booking.slot.startTime}`
+                ).getTime();
+                return bookingDateTime < now;
+              })
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              .map((booking: any) => (
+                <tr key={booking._id}>
+                  <td>{booking?.service?.name || "N/A"}</td>
+                  <td>{booking?.slot?.date || "N/A"}</td>
+                  <td>
+                    {booking?.slot?.startTime || "N/A"} -{" "}
+                    {booking?.slot?.endTime || "N/A"}
+                  </td>
+                  <td>{`${booking?.vehicleBrand || "N/A"} ${
+                    booking?.vehicleModel || "N/A"
+                  }`}</td>
+                  <td>{booking?.registrationPlate || "N/A"}</td>
+                  <td>
+                    <Button
+                      type="primary"
+                      onClick={() => handleOpenReviewModal(booking.service._id)}
+                    >
+                      Give Rating
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Review Modal */}
       <Modal

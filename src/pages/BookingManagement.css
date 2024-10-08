@@ -1,4 +1,26 @@
 /* Booking Management Container - Unchanged */
+
+/* Booking Table - Responsive */
+.booking-table-container {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+}
+
+.booking-table {
+  width: 100%; /* Full width for larger screens */
+  min-width: 600px; /* Set a minimum width to ensure the table doesn't collapse on small screens */
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-top: 30px;
+  font-size: 1rem;
+
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Rest of the table styling remains unchanged */
+
 .booking-management {
   padding: 20px;
 }

@@ -229,7 +229,8 @@ const ManageSlots: React.FC = () => {
         rowKey="_id"
         style={{ textAlign: "center" }}
         bordered
-        pagination={{ pageSize: 10 }} // Configure pagination here
+        pagination={{ pageSize: 10 }}
+        scroll={{ x: 800 }} // Added scroll property for responsiveness
       >
         <Table.Column
           title={

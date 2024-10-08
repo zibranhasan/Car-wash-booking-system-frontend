@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Typography, Button, Menu, Drawer } from "antd";
+import { Layout, Row, Col, Typography, Menu, Drawer } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -8,7 +8,6 @@ import {
   LoginOutlined,
   UserAddOutlined,
   LogoutOutlined,
-  MenuOutlined,
 } from "@ant-design/icons";
 import Countdown from "react-countdown";
 import { RootState, AppDispatch } from "./redux/store";
@@ -191,15 +190,6 @@ const App: React.FC = () => {
                 lineHeight: "56px",
                 borderBottom: "none",
               }}
-            />
-          </Col>
-
-          {/* Mobile Menu Icon */}
-          <Col xs={24} sm={24} md={0} lg={0} style={{ textAlign: "right" }}>
-            <Button
-              type="primary"
-              icon={<MenuOutlined />}
-              onClick={() => setDrawerVisible(true)}
             />
           </Col>
 

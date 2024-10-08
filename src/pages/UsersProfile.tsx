@@ -6,25 +6,21 @@ import {
 
 const { Title } = Typography;
 
-// Define the type for user data
 interface User {
   _id: string;
   name: string;
   email: string;
   phone: string;
-  role: "admin" | "user"; // Role can only be 'admin' or 'user'
+  role: "admin" | "user";
   address: string;
 }
 
 const UsersProfile = () => {
-  // Fetch all users
   const { data: users, isLoading } = useGetAllUserQuery(undefined);
   const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
 
-  // Extract user data from the response
   const UserProfile: User[] = users?.response?.data || [];
 
-  // Handle role update
   const handleRoleToggle = async (user: User) => {
     const newRole = user.role === "admin" ? "user" : "admin";
     try {
@@ -35,7 +31,6 @@ const UsersProfile = () => {
     }
   };
 
-  // Table columns definition
   const columns = [
     {
       title: "Name",
@@ -96,7 +91,6 @@ const UsersProfile = () => {
     },
   ];
 
-  // Return loading state if data is being fetched
   if (isLoading) {
     return <p style={{ textAlign: "center", fontSize: "18px" }}>Loading...</p>;
   }
@@ -120,6 +114,7 @@ const UsersProfile = () => {
         rowKey={(record) => record._id}
         bordered
         pagination={{ pageSize: 5 }}
+        scroll={{ x: 800 }} // Enable horizontal scroll for smaller screens
         style={{
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
           borderRadius: "10px",

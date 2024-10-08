@@ -3,6 +3,7 @@ import React from "react";
 import { Row, Col, Button } from "antd";
 import { motion } from "framer-motion";
 import "./SpecialOffers.css";
+import { Link } from "react-router-dom";
 
 const offers = [
   {
@@ -43,9 +44,17 @@ const SpecialOffers: React.FC = () => {
                 <div className="offer-discount">{offer.discount}</div>
                 <h3>{offer.title}</h3>
                 <p>{offer.description}</p>
-                <Button type="primary" className="offer-button">
-                  Book Now
-                </Button>
+                <Link to="/services">
+                  <Button
+                    style={{
+                      backgroundColor: "#001529",
+                      borderColor: "#001529",
+                      color: "#fff",
+                    }}
+                  >
+                    Get Offer
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </Col>
