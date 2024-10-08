@@ -160,9 +160,13 @@ const App: React.FC = () => {
     >
       {/* Header Navbar */}
       <Header style={{ backgroundColor: "#001529" }}>
-        <Row justify="space-between" align="middle" style={{ width: "100%" }}>
+        <Row
+          justify="space-between"
+          align="middle"
+          style={{ width: "100%", height: "63px" }}
+        >
           {/* Logo on the Left */}
-          <Col>
+          <Col lg={8}>
             <Title
               level={3}
               style={{
@@ -178,7 +182,7 @@ const App: React.FC = () => {
           </Col>
 
           {/* Desktop Menu */}
-          <Col xs={0} sm={0} md={16} lg={8}>
+          <Col xs={1} sm={1} md={16} lg={8}>
             <Menu
               theme="dark"
               mode="horizontal"
@@ -253,7 +257,6 @@ const App: React.FC = () => {
             flex: 1,
             margin: 0,
             background: "#f0f2f5",
-            padding: "0px 1px",
           }}
         >
           <Outlet /> {/* Render the main content area */}

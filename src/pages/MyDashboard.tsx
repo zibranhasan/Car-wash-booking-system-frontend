@@ -20,6 +20,7 @@ interface Booking {
     name: string;
   };
   slot: {
+    _id: string | undefined;
     startTime: string;
     endTime: string;
   };
@@ -160,7 +161,7 @@ const MyDashboard: React.FC = () => {
   // Map Booking and Transaction Data to Table Rows
   const tableData = userBookings.map((booking, index) => {
     const transaction = userTransactions.find(
-      (tran) => tran.slotId?._id === booking.slotId
+      (tran) => tran.slotId?._id === booking.slot._id
     );
     return {
       key: index,

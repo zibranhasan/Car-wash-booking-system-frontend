@@ -1,6 +1,5 @@
 .dashboard-container {
   padding: 20px;
-  background: #f0f2f5; /* Light background for better contrast */
   min-height: 100vh;
 }
 
@@ -13,7 +12,7 @@
 
 .dashboard-card {
   text-align: center;
-  border-radius: 10px;
+
   transition: all 0.3s ease-in-out;
   height: 150px; /* Set a fixed height */
   display: flex;

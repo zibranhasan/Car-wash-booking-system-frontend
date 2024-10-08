@@ -75,7 +75,7 @@ const ReviewSection = ({
 
   return (
     <Row
-      style={{ padding: "0 0", width: "100vw", margin: "0 auto" }}
+      style={{ padding: "0 0", width: "100%", margin: "0 auto" }}
       justify="center"
     >
       {/* Reviews Section */}

@@ -39,12 +39,12 @@
 
 /* Booking Table Styling */
 .booking-table {
-  width: 90%; /* Centered and responsive */
+  width: 100%; /* Centered and responsive */
   border-collapse: separate; /* Separate border spacing for rounded edges */
   border-spacing: 0 10px; /* Add spacing between rows */
   margin-top: 30px;
   font-size: 1rem;
-  background: #ffffff;
+
   border-radius: 12px; /* Rounded table corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
   overflow: hidden; /* Prevent overflow */

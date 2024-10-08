@@ -35,7 +35,7 @@ const FeaturedServices = () => {
   };
 
   return (
-    <div style={{ padding: "15px" }}>
+    <div style={{ padding: "25px" }}>
       <Row gutter={[32, 32]} justify="center">
         {services.slice(0, 8).map((service) => (
           <Col xs={24} sm={12} md={8} lg={6} key={service._id}>

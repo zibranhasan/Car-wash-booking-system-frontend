@@ -68,9 +68,7 @@ const ViewProfile = () => {
               />
             </Col>
             <Col xs={24} md={12} className="profile-info-col">
-              <Title level={2} className="profile-name">
-                {profileData.name}
-              </Title>
+              <Tag className="profile-name">{profileData.name}</Tag>
               <Tag color="blue" style={{ fontSize: "14px" }}>
                 {profileData.role.toUpperCase()}
               </Tag>

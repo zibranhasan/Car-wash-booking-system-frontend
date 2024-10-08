@@ -1,5 +1,6 @@
 .blog-section {
-  padding: 20px;
+  padding: 15px;
+  width: "100%";
 }
 
 .section-title {
@@ -22,12 +23,14 @@
 }
 
 .blog-title {
+  height: 50px;
   font-size: 18px;
-  margin: 10px 0;
+  margin: 5px 0;
   font-weight: bold;
 }
 
 .blog-description {
+  height: 50px;
   font-size: 14px;
   color: #555;
 }
@@ -41,7 +44,7 @@
 .read-more-btn {
   margin-top: 10px;
   width: 100%;
-  background-color: #1890ff;
+  background-color: #001529;
   border: none;
   color: white;
 }

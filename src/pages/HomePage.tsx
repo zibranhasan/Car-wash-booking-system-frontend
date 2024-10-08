@@ -26,9 +26,9 @@ const HomePage = () => {
     allReviewData.length;
 
   return (
-    <div style={{ margin: "0px" }}>
+    <>
+      {" "}
       <HeroSection />
-
       <SpecialOffers />
       <FeaturedServices />
       <ReviewSection
@@ -38,9 +38,8 @@ const HomePage = () => {
         onSubmitReview={createReview}
       />
       <BlogSection />
-
       <AboutUs />
-    </div>
+    </>
   );
 };
 
