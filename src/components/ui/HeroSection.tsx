@@ -1,9 +1,9 @@
 // src/components/ui/HeroSection.js
 import { Carousel } from "antd";
 import "./HeroSection.css"; // For additional styling if needed
-import carWashImage1 from "../../assets/images/francis-painchaud-MTeoQOv_F14-unsplash.jpg";
-import carWashImage2 from "../../assets/images/francis-painchaud-OKrBHc_btdI-unsplash.jpg";
-import carWashImage3 from "../../assets/images/francis-painchaud-isfJM-5P7Jc-unsplash.jpg";
+import carWashImage1 from "../../assets/images/beautiful-car-washing-service.jpg";
+import carWashImage2 from "../../assets/images/professional-washer-blue-uniform-washing-luxury-car-with-water-gun-open-air-car-wash.jpg";
+import carWashImage3 from "../../assets/images/young-man-fashion-clothes-wiping-his-car-with-rug-after-washing-car-wash-station-man-wearing-white-t-shirt-jeans.jpg";
 import CTAButton from "./CTAButton";
 
 const HeroSection = () => {

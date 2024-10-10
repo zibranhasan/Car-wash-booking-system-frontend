@@ -1,0 +1,75 @@
+.footer {
+  background-color: #001529;
+  height: fit-content;
+  color: #fff;
+  padding: 30px 20px; /* Reduced padding to decrease height */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Reduced space between sections */
+  position: relative; /* Needed for the gradient bar */
+}
+
+.contact {
+  margin-bottom: 10px; /* Less margin to reduce height */
+  color: #fff;
+}
+
+.contact h3 {
+  font-size: 1.6rem; /* Slightly smaller font */
+  margin-bottom: 10px;
+  color: #f0f0f0;
+}
+
+.contact p {
+  font-size: 1rem; /* Reduced size */
+  margin: 0;
+  color: #d9d9d9;
+}
+
+.contact span {
+  font-weight: bold;
+  color: #fff;
+}
+
+.socialLinks {
+  margin-top: 15px; /* Reduced margin */
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Decreased space between icons */
+}
+
+.icon {
+  font-size: 1.8rem; /* Slightly smaller icons */
+  color: #d9d9d9;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.icon:hover {
+  color: #1da1f2;
+  transform: translateY(-3px); /* Subtle lift on hover */
+}
+
+.additionalLinks {
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+.additionalLinks a {
+  color: #0070f3;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1rem; /* Slightly smaller text */
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.additionalLinks a:hover {
+  color: #1da1f2;
+  text-decoration: underline;
+}
+
+.copyright {
+  font-size: 0.8rem; /* Slightly smaller text */
+  color: #b3b3b3;
+}

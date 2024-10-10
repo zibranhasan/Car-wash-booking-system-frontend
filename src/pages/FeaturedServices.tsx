@@ -68,7 +68,7 @@ const FeaturedServices = () => {
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                   overflow: "hidden",
                   height: "360px", // Reduce height to remove extra space
-                  border: "1px solid #001529",
+
                   position: "relative",
                   transition: "all 0.3s ease-in-out",
                 }}
@@ -76,7 +76,7 @@ const FeaturedServices = () => {
               >
                 <h3
                   style={{
-                    color: "#3b5998",
+                    color: "#001529",
                     fontSize: "18px", // Reduce font size slightly
                     fontWeight: "600",
                     marginBottom: "8px", // Reduce margin between the title and the rating
@@ -103,15 +103,11 @@ const FeaturedServices = () => {
                   }}
                 >
                   <span>
-                    <DollarOutlined
-                      style={{ marginRight: "5px", color: "#1890ff" }}
-                    />
+                    <DollarOutlined style={{ marginRight: "5px" }} />
                     <strong>${service.price}</strong>
                   </span>
                   <span>
-                    <ClockCircleOutlined
-                      style={{ marginRight: "5px", color: "#1890ff" }}
-                    />
+                    <ClockCircleOutlined style={{ marginRight: "5px" }} />
                     <strong>{service.duration} mins</strong>
                   </span>
                 </p>
@@ -150,7 +146,7 @@ const FeaturedServices = () => {
           <Button
             style={{
               backgroundColor: "#001529",
-              borderColor: "#001529",
+
               color: "#fff",
             }}
           >

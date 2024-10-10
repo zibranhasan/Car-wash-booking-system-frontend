@@ -16,6 +16,7 @@ import { userPaths } from "./user.routes";
 import AllReviews from "../pages/AllReviews";
 import NotFound from "../pages/NotFound";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import Contact from "../pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
       },
       {
         path: "*",
@@ -47,10 +52,8 @@ const router = createBrowserRouter([
         path: "services/:id",
         element: (
           <>
-            <ProtectedRoute>
-              {" "}
-              <ServiceDetails />
-            </ProtectedRoute>
+            {" "}
+            <ServiceDetails />
           </>
         ),
       },

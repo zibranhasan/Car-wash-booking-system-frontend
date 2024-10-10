@@ -24,7 +24,7 @@ const offers = [
     title: "Summer Special - Free",
     description:
       "Book a car wash this summer and get free waxing with your service.",
-    image: "/images/summer-special.jpg",
+
     discount: "Free Waxing",
   },
 ];

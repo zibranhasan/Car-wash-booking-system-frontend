@@ -15,6 +15,7 @@ import {
   Modal,
   Form,
   Input,
+  Alert,
 } from "antd";
 import { DollarOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Dayjs } from "dayjs";
@@ -27,11 +28,13 @@ import {
 import { useCreateBookingMutation } from "../redux/api/bookingApi";
 import { useCreateTransactionMutation } from "../redux/api/transactionApi";
 import { useAppSelector } from "../redux/hook";
+import { userCurrentToken } from "../redux/features/authSlice";
 
 const { Title, Text } = Typography;
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const token = useAppSelector(userCurrentToken);
 
   const {
     data: serviceDetails,
@@ -176,7 +179,7 @@ const ServiceDetails = () => {
           <Col>
             <div style={{ display: "flex", alignItems: "center" }}>
               <DollarOutlined
-                style={{ fontSize: 24, color: "#1890ff", marginRight: 8 }}
+                style={{ fontSize: 24, color: "#001529", marginRight: 8 }}
               />
               <Text style={{ fontSize: "18px" }} strong>
                 ${service?.price}
@@ -186,7 +189,7 @@ const ServiceDetails = () => {
           <Col>
             <div style={{ display: "flex", alignItems: "center" }}>
               <ClockCircleOutlined
-                style={{ fontSize: 24, color: "#1890ff", marginRight: 8 }}
+                style={{ fontSize: 24, color: "#001529", marginRight: 8 }}
               />
               <Text style={{ fontSize: "18px" }}>{service?.duration} mins</Text>
             </div>
@@ -214,6 +217,12 @@ const ServiceDetails = () => {
                 {slot.isBooked === "available" ? (
                   <Button
                     type="primary"
+                    style={{
+                      marginTop: 16,
+                      borderRadius: 5,
+                      backgroundColor: "#001529",
+                      border: "none",
+                    }}
                     onClick={() => handleSlotSelect(slot._id)}
                   >
                     Book This Slot
@@ -236,6 +245,15 @@ const ServiceDetails = () => {
         onCancel={handleCancel}
         footer={null}
       >
+        {/* Show login message if no token */}
+        {!token && (
+          <Alert
+            message="Please log in first to book a service."
+            type="warning"
+            showIcon
+            style={{ marginBottom: "16px" }}
+          />
+        )}
         <Form form={form} onFinish={handleOk}>
           <Form.Item label="Service" name="serviceId">
             <Input disabled />
@@ -295,8 +313,12 @@ const ServiceDetails = () => {
             <Input />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Payment
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={!token} // Disable button if no token
+            >
+              Proceed to Payment
             </Button>
           </Form.Item>
         </Form>

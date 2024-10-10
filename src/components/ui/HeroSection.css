@@ -14,12 +14,19 @@
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
-  /* Dark overlay for better text visibility */
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+  padding: 25px; /* Add padding for better readability */
+}
+.hero-section .carousel-image {
+  background-size: contain;
+  background-position: center;
+  height: 400px; /* Adjust height as needed */
 }
 
 .hero-section h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  padding: 20px;
 }
 
 .hero-section p {

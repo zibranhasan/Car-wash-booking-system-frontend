@@ -4,7 +4,7 @@ import { useAppDispatch } from "../redux/hook";
 import { useLoginMutation } from "../redux/api/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { setUser } from "../redux/features/authSlice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Login.css";
 
@@ -31,8 +31,6 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const [login, { isLoading, error }] = useLoginMutation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   // Modal visibility states
   const [isAdminModalVisible, setIsAdminModalVisible] = useState(false);
@@ -61,10 +59,18 @@ const Login = () => {
 
   const onSubmit = async (data: TuserInfo) => {
     try {
-      const res = await login(data).unwrap();
-      const user = verifyToken(res.token);
+      const res = await login(data).unwrap(); // Perform the login and get the token
+      const user = verifyToken(res.token); // Verify and decode the token to get user info
+
+      // Dispatch the user data and token to the store
       dispatch(setUser({ user, token: res.token }));
-      navigate(from, { replace: true });
+
+      // Check the role of the user (assuming the user object contains a 'role' field)
+      if (user?.role === "admin") {
+        navigate("/dashboard/admin/adminDashboard", { replace: true }); // Redirect to admin dashboard
+      } else {
+        navigate("/dashboard/user/myDashboard", { replace: true }); // Redirect to user dashboard
+      }
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -156,11 +162,6 @@ const Login = () => {
           </Button>
 
           <Divider>OR</Divider>
-
-          <Button type="default" className="google-login-button">
-            <img src="/assets/google-icon.svg" alt="Google" className="icon" />
-            Continue with Google
-          </Button>
 
           <div className="register-redirect">
             <Text className="register-label">Don't have an account?</Text>

@@ -118,8 +118,7 @@ const Services = () => {
                     borderRadius: 10,
                     overflow: "hidden",
                     width: "100%",
-                    height: "450px", // Adjust height to fit the rating
-                    border: "1px solid #5899f5",
+                    height: "420px", // Adjust height to fit the rating
                     display: "flex",
                     flexDirection: "column",
                     paddingBottom: 10,
@@ -147,7 +146,7 @@ const Services = () => {
                         style={{
                           textAlign: "center",
                           height: "20px",
-                          opacity: "0.7", // Adjust transparency as needed (0 to 1)
+                          // Adjust transparency as needed (0 to 1)
                           fontSize: "inherit", // Allows font size to adjust based on content
                           lineHeight: "1.5", // Adjust line height for readability
                           overflow: "hidden", // Prevents text from overflowing the specified height
@@ -214,7 +213,7 @@ const Services = () => {
                       style={{
                         marginTop: 16,
                         borderRadius: 5,
-                        backgroundColor: "#4caf50",
+                        backgroundColor: "#001529",
                         border: "none",
                       }}
                       onClick={() => handleDetailsClick(service._id)}

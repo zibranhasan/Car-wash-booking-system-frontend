@@ -90,11 +90,11 @@ const ReviewSection = ({
             fontSize: "28px", // Increase font size
             textTransform: "uppercase", // Uppercase letters
             letterSpacing: "1px", // Increase space between letters
-            background: "linear-gradient(to right, #ff4d4f, #001529)", // Background gradient
+            background: "linear-gradient(to right, #1e3c72, #001529)", // Background gradient
             WebkitBackgroundClip: "text", // Clip the background to text
             WebkitTextFillColor: "transparent", // Make text fill transparent for gradient effect
             padding: "10px 0", // Add padding for spacing
-            borderBottom: "2px solid #faad14", // Bottom border for emphasis
+            borderBottom: "2px solid #001529", // Bottom border for emphasis
           }}
         >
           What Our Customers Are Saying
